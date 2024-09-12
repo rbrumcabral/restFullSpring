@@ -1,0 +1,14 @@
+/.metadata/
+
+# SSH Keys #
+*.pem
+*.ppk
+
+# Packacage Files #
+*.jar
+*.war
+*.ear
+
+#Eclipse Files
+
+**/.project 
