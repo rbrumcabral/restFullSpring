@@ -1,2 +1,2 @@
-# restFullSpring
-Projeto base para especialização em RestFull-Hateoas com Spring Boot
+# restFulSpring
+Projeto base para especialização em RestFul-Hateoas com Spring Boot
