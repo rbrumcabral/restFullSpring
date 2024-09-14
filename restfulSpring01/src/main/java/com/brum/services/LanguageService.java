@@ -2,7 +2,6 @@ package com.brum.services;
 
 import java.util.Locale;
 
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.LocaleResolver;
@@ -18,14 +17,6 @@ public class LanguageService {
 
 	@Autowired
 	private Messages messages;
-
-	private org.slf4j.Logger logger = LoggerFactory.getLogger(LanguageService.class);
-
-	private String ERROR_IDIOM_NOT_FOUND;
-
-	private String ACTUAL_IDIOM;
-
-	private String IDIOM_CHANGED_TO;
 
 	public String changeLanguage(String langParam, String langHeader, HttpServletRequest request,
 			HttpServletResponse response) {
