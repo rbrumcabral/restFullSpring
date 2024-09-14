@@ -9,6 +9,10 @@
 *.war
 *.ear
 
-#Eclipse Files
+# Eclipse Files
 
 **/.project 
+
+# Log files
+
+*.log
