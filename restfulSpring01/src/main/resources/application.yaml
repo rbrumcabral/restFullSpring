@@ -1,1 +1,18 @@
-spring.application.name=restfulSpring01
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+     charset: UTF-8
+     enabled: true
+     force: true
+logging:
+  level:
+    root: INFO
+  file:
+    name: app-api.log
+    path: /home/app/logs/
