@@ -29,33 +29,35 @@ public class UserController {
 	private UserService service;
 
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+
 	@GetMapping("/{id}")
 	public ResponseEntity<User> findById(@PathVariable("id") Long id) {
 		User response = this.service.findById(id);
-		return new ResponseEntity<User>(response, HttpStatus.ACCEPTED);
+		return new ResponseEntity<User>(response, HttpStatus.OK);
 	}
 
 	@GetMapping
 	public ResponseEntity<List<User>> findAll() {
 		List<User> response = this.service.findAll();
-		return new ResponseEntity<List<User>>(response, HttpStatus.ACCEPTED);
+		return new ResponseEntity<List<User>>(response, HttpStatus.OK);
 	}
 
 	@PostMapping
-	public User create(@Valid @RequestBody  User user) {
-		logger.info(user.toString());
-		return this.service.create(user);
+	public ResponseEntity<User> create(@Valid @RequestBody User user) {
+		User response = this.service.create(user);
+		return new ResponseEntity<User>(response, HttpStatus.OK);
 	}
 
 	@PutMapping
-	public User update(@Valid @RequestBody User user) {
-		return this.service.update(user);
+	public ResponseEntity<User> update(@Valid @RequestBody User user) {
+		User response = this.service.update(user);
+		return new ResponseEntity<User>(response, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable("id") Long id) {
+	public ResponseEntity<User> delete(@PathVariable("id") Long id) {
 		this.service.delete(id);
+		return ResponseEntity.noContent().build();
 	}
 
 }
