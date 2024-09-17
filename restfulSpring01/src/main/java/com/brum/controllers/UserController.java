@@ -45,7 +45,7 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<User> create(@Valid @RequestBody User user) {
 		User response = this.service.create(user);
-		return new ResponseEntity<User>(response, HttpStatus.OK);
+		return new ResponseEntity<User>(response, HttpStatus.CREATED);
 	}
 
 	@PutMapping
