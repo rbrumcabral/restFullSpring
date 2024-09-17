@@ -10,6 +10,15 @@ public class Period {
 
 	private List<Expenses> expenses;
 
+	public Period() {
+	}
+
+	public Period(String name, List<Expenses> expenses) {
+
+		this.name = name;
+		this.expenses = expenses;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -10,6 +10,17 @@ public class Expenses {
 
 	private boolean isStaticValue;
 
+	public Expenses() {
+		super();
+	}
+
+	public Expenses(String name, double value, boolean isStaticValue) {
+		super();
+		this.name = name;
+		this.value = value;
+		this.isStaticValue = isStaticValue;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -8,6 +8,16 @@ public class Investment {
 
 	private double value;
 
+	public Investment() {
+		super();
+	}
+
+	public Investment(String name, double value) {
+		super();
+		this.name = name;
+		this.value = value;
+	}
+
 	public String getName() {
 		return name;
 	}
