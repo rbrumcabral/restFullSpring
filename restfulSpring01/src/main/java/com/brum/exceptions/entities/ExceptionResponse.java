@@ -1,4 +1,4 @@
-package com.brum.exceptions;
+package com.brum.exceptions.entities;
 
 import java.io.Serializable;
 import java.util.Date;
