@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.brum.domain.dto.UserDTO;
+import com.brum.domain.dto.v1.UserDTO;
 import com.brum.services.UserService;
 
 import jakarta.validation.Valid;

@@ -1,4 +1,4 @@
-package com.brum.domain.dto;
+package com.brum.domain.dto.v1;
 
 import java.util.ArrayList;
 import java.util.List;

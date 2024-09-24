@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.brum.domain.dto.UserDTO;
+import com.brum.domain.dto.v1.UserDTO;
 import com.brum.domain.entities.User;
 import com.brum.exceptions.entities.NotFoundException;
 import com.brum.repositories.UserRepository;
