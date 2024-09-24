@@ -1,10 +1,12 @@
 package com.brum.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.brum.domain.dto.UserDTO;
 import com.brum.domain.entities.User;
 import com.brum.exceptions.entities.NotFoundException;
 import com.brum.repositories.UserRepository;
@@ -18,22 +20,32 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
-	public User findById(Long id) {
-		return this.repository.findById(id).orElseThrow(() -> {
+	public UserDTO findById(Long id) {
+		var entity = this.repository.findById(id).orElseThrow(() -> {
 			throw new NotFoundException(this.messages.getMessage("user.service.findById.notFound", id));
 		});
+
+		return new UserDTO(entity);
 	}
 
-	public List<User> findAll() {
-		return this.repository.findAll();
+	public List<UserDTO> findAll() {
+		var responses = this.repository.findAll();
+		List<UserDTO> dtos = new ArrayList<UserDTO>();
+		for (User response : responses) {
+			dtos.add(new UserDTO(response));
+		}
+
+		return dtos;
 	}
 
-	public User create(User user) {
-		return this.repository.save(user);
+	public UserDTO create(UserDTO user) {
+		var entity = user.dtoToEntity();
+		var response = this.repository.save(entity);
+		return new UserDTO(response);
 	}
 
-	public User update(User user) {
-		User entity = this.repository.findById(user.getId()).orElseThrow(() -> {
+	public UserDTO update(UserDTO user) {
+		var entity = this.repository.findById(user.getId()).orElseThrow(() -> {
 			throw new NotFoundException(this.messages.getMessage("user.service.findById.notFound", user.getId()));
 		});
 
@@ -42,9 +54,11 @@ public class UserService {
 		entity.setPassword(user.getPassword());
 		entity.setPaymentOptions(user.getPaymentOptions());
 
-		return this.repository.save(entity);
+		var response = this.repository.save(entity);
+
+		return new UserDTO(response);
 	}
-	
+
 	public void delete(Long id) {
 		this.repository.deleteById(id);
 	}

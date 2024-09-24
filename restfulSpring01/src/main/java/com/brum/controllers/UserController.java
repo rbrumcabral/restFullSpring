@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.brum.domain.entities.User;
+import com.brum.domain.dto.UserDTO;
 import com.brum.services.UserService;
 
 import jakarta.validation.Valid;
@@ -32,31 +32,31 @@ public class UserController {
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> findById(@PathVariable("id") Long id) {
-		User response = this.service.findById(id);
-		return new ResponseEntity<User>(response, HttpStatus.OK);
+	public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
+		UserDTO response = this.service.findById(id);
+		return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
 	}
 
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<User>> findAll() {
-		List<User> response = this.service.findAll();
-		return new ResponseEntity<List<User>>(response, HttpStatus.OK);
+	public ResponseEntity<List<UserDTO>> findAll() {
+		List<UserDTO> response = this.service.findAll();
+		return new ResponseEntity<List<UserDTO>>(response, HttpStatus.OK);
 	}
 
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> create(@Valid @RequestBody User user) {
-		User response = this.service.create(user);
-		return new ResponseEntity<User>(response, HttpStatus.CREATED);
+	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO user) {
+		UserDTO response = this.service.create(user);
+		return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);
 	}
 
 	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<User> update(@Valid @RequestBody User user) {
-		User response = this.service.update(user);
-		return new ResponseEntity<User>(response, HttpStatus.OK);
+	public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO user) {
+		UserDTO response = this.service.update(user);
+		return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/{id}")
-	public ResponseEntity<User> delete(@PathVariable("id") Long id) {
+	public ResponseEntity<UserDTO> delete(@PathVariable("id") Long id) {
 		this.service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
