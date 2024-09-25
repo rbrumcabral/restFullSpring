@@ -31,25 +31,25 @@ public class UserController {
 
 	private Logger logger = LoggerFactory.getLogger(UserController.class);
 
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<UserDTO> findById(@PathVariable("id") Long id) {
 		UserDTO response = this.service.findById(id);
 		return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
 	}
 
-	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<List<UserDTO>> findAll() {
 		List<UserDTO> response = this.service.findAll();
 		return new ResponseEntity<List<UserDTO>>(response, HttpStatus.OK);
 	}
 
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<UserDTO> create(@Valid @RequestBody UserDTO user) {
 		UserDTO response = this.service.create(user);
 		return new ResponseEntity<UserDTO>(response, HttpStatus.CREATED);
 	}
 
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
 	public ResponseEntity<UserDTO> update(@Valid @RequestBody UserDTO user) {
 		UserDTO response = this.service.update(user);
 		return new ResponseEntity<UserDTO>(response, HttpStatus.OK);
