@@ -23,7 +23,7 @@ import com.brum.services.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("api/user/v1")
 public class UserController {
 
 	@Autowired

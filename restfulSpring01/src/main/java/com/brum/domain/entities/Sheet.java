@@ -2,7 +2,7 @@ package com.brum.domain.entities;
 
 import java.util.List;
 
-public class Period {
+public class Sheet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -10,10 +10,10 @@ public class Period {
 
 	private List<Expenses> expenses;
 
-	public Period() {
+	public Sheet() {
 	}
 
-	public Period(String name, List<Expenses> expenses) {
+	public Sheet(String name, List<Expenses> expenses) {
 
 		this.name = name;
 		this.expenses = expenses;

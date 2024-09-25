@@ -3,6 +3,8 @@ package com.brum.domain.entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,9 +26,10 @@ public class User {
 	private long id;
 
 	@Column(name = "full_name", nullable = false)
+	@JsonProperty("Full Name")
 	private String fullName;
 
-	@Column(nullable = false)
+	@Column(nullable = false, unique=true)
 	private String email;
 
 	@Column(nullable = false)
