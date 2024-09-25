@@ -26,7 +26,6 @@ public class User {
 	private long id;
 
 	@Column(name = "full_name", nullable = false)
-	@JsonProperty("Full Name")
 	private String fullName;
 
 	@Column(nullable = false, unique=true)

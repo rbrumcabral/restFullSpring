@@ -1,4 +1,4 @@
-package com.brum.domain.dto.v1;
+package com.brum.domain.dto.v2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.Objects;
 
 import org.springframework.hateoas.RepresentationModel;
 
-import com.brum.domain.dto.v2.UserDTOH;
+import com.brum.domain.dto.v1.UserDTO;
 import com.brum.domain.entities.PaymentOption;
 import com.brum.domain.entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({"id", "fullName", "email", "password", "paymentOptions"})
-public class UserDTO {
+public class UserDTOH extends RepresentationModel<UserDTOH> {
 
 	@JsonProperty("id")
 	private long key;
@@ -22,17 +22,17 @@ public class UserDTO {
 	private String password;
 	private List<PaymentOption> paymentOptions;
 
-	public UserDTO() {
+	public UserDTOH() {
 	}
 
-	public UserDTO(String fullName, String email, String password) {
+	public UserDTOH(String fullName, String email, String password) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
 		this.paymentOptions = new ArrayList<PaymentOption>();
 	}
 
-	public UserDTO(User user) {
+	public UserDTOH(User user) {
 		this.key = user.getId();
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
@@ -44,7 +44,7 @@ public class UserDTO {
 		}
 	}
 	
-	public UserDTO(UserDTOH user) {
+	public UserDTOH(UserDTO user) {
 		this.key = user.getKey();
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
@@ -131,7 +131,7 @@ public class UserDTO {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		UserDTO other = (UserDTO) obj;
+		UserDTOH other = (UserDTOH) obj;
 		return Objects.equals(email, other.email) && Objects.equals(fullName, other.fullName) && key == other.key
 				&& Objects.equals(password, other.password) && Objects.equals(paymentOptions, other.paymentOptions);
 	}
