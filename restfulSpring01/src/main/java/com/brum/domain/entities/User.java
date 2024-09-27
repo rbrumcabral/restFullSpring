@@ -2,8 +2,7 @@ package com.brum.domain.entities;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.Objects;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -28,7 +27,7 @@ public class User {
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
 
-	@Column(nullable = false, unique=true)
+	@Column(nullable = false, unique = true)
 	private String email;
 
 	@Column(nullable = false)
@@ -37,13 +36,39 @@ public class User {
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<PaymentOption> paymentOptions;
 
-	public User() {}
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Sheet> sheets;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Investment> investments;
+
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<UserExpenses> savedExpenses;
+
+	public User() {
+	}
+
+	public User(long id, String fullName, String email, String password, List<PaymentOption> paymentOptions,
+			List<Sheet> sheets, List<Investment> investments, List<UserExpenses> savedExpenses) {
+		super();
+		this.id = id;
+		this.fullName = fullName;
+		this.email = email;
+		this.password = password;
+		this.paymentOptions = paymentOptions;
+		this.sheets = sheets;
+		this.investments = investments;
+		this.savedExpenses = savedExpenses;
+	}
+
 	public User(String fullName, String email, String password) {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
 		this.paymentOptions = new ArrayList<PaymentOption>();
+		this.sheets = new ArrayList<Sheet>();
+		this.investments = new ArrayList<Investment>();
+		this.savedExpenses = new ArrayList<UserExpenses>();
 	}
 
 	public long getId() {
@@ -86,6 +111,30 @@ public class User {
 		this.paymentOptions = paymentOptions;
 	}
 
+	public List<Sheet> getSheets() {
+		return sheets;
+	}
+
+	public void setSheets(List<Sheet> sheets) {
+		this.sheets = sheets;
+	}
+
+	public List<Investment> getInvestments() {
+		return investments;
+	}
+
+	public void setInvestments(List<Investment> investments) {
+		this.investments = investments;
+	}
+
+	public List<UserExpenses> getSavedExpenses() {
+		return savedExpenses;
+	}
+
+	public void setSavedExpenses(List<UserExpenses> savedExpenses) {
+		this.savedExpenses = savedExpenses;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -94,6 +143,25 @@ public class User {
 	public String toString() {
 		return super.toString();
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(email, fullName, id, investments, password, paymentOptions, savedExpenses, sheets);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		return Objects.equals(email, other.email) && Objects.equals(fullName, other.fullName) && id == other.id
+				&& Objects.equals(investments, other.investments) && Objects.equals(password, other.password)
+				&& Objects.equals(paymentOptions, other.paymentOptions)
+				&& Objects.equals(savedExpenses, other.savedExpenses) && Objects.equals(sheets, other.sheets);
+	}
+
 }

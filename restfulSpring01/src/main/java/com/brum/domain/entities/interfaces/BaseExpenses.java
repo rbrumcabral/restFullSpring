@@ -1,48 +1,33 @@
-package com.brum.domain.entities;
+package com.brum.domain.entities.interfaces;
 
 import java.util.Objects;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.MappedSuperclass;
 
-@Entity
-@Table(name = "investment_t")
-public class Investment {
+@MappedSuperclass
+public abstract class BaseExpenses {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	protected long id;
 
 	@Column(nullable = false)
-	private String name;
+	protected String name;
 
 	@Column(nullable = false)
-	private double value;
+	protected double value;
 
 	@Column
-	private String category;
+	protected String category;
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
-	public Investment() {
-	}
-
-	public Investment(String name, double value, String category, User user) {
-		this.name = name;
-		this.value = value;
-		this.category = category;
-		this.user = user;
-	}
+	@Column(name = "is_static_value", nullable = false)
+	protected boolean isStaticValue;
 
 	public long getId() {
 		return id;
@@ -68,6 +53,14 @@ public class Investment {
 		this.value = value;
 	}
 
+	public boolean isStaticValue() {
+		return isStaticValue;
+	}
+
+	public void setStaticValue(boolean isStaticValue) {
+		this.isStaticValue = isStaticValue;
+	}
+
 	public String getCategory() {
 		return category;
 	}
@@ -82,7 +75,7 @@ public class Investment {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, id, name, user, value);
+		return Objects.hash(id, isStaticValue, name, value);
 	}
 
 	@Override
@@ -93,16 +86,9 @@ public class Investment {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Investment other = (Investment) obj;
-		return Objects.equals(category, other.category) && id == other.id && Objects.equals(name, other.name)
-				&& Objects.equals(user, other.user)
+		BaseExpenses other = (BaseExpenses) obj;
+		return id == other.id && isStaticValue == other.isStaticValue && Objects.equals(name, other.name)
 				&& Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
-	}
-
-	@Override
-	public String toString() {
-		return "Investment [id=" + id + ", name=" + name + ", value=" + value + ", category=" + category + ", user="
-				+ user + "]";
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.brum.domain.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +24,7 @@ public class PaymentOption {
 	@Column
 	private String name;
 
-	@Column
+	@Column(name = "credit_limit")
 	private double creditLimit;
 
 	@ManyToOne
@@ -55,6 +57,29 @@ public class PaymentOption {
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(creditLimit, id, name, user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PaymentOption other = (PaymentOption) obj;
+		return Double.doubleToLongBits(creditLimit) == Double.doubleToLongBits(other.creditLimit)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name) && Objects.equals(user, other.user);
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentOption [id=" + id + ", name=" + name + ", creditLimit=" + creditLimit + ", user=" + user + "]";
 	}
 
 }
