@@ -141,7 +141,9 @@ public class User {
 
 	@Override
 	public String toString() {
-		return super.toString();
+		return "User [id=" + id + ", fullName=" + fullName + ", email=" + email + ", password=" + password
+				+ ", paymentOptions=" + paymentOptions + ", sheets=" + sheets + ", investments=" + investments
+				+ ", savedExpenses=" + savedExpenses + "]";
 	}
 
 	@Override
