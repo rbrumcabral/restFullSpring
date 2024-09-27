@@ -15,7 +15,7 @@ public class MockInvestment {
 	public Investment generateMockInvestment(User user, Long seed) {
 		Long id = seed;
 		String name = "Investment" + seed.toString();
-		double value = 1000L * seed;
+		double value = 1000L + seed;
 		String category = "Category" + seed.toString();
 
 		return new Investment(id, name, value, category, user);

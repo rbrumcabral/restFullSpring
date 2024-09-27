@@ -11,7 +11,22 @@ import com.brum.domain.entities.UserExpenses;
 
 public class MockUser {
 
+	MockSheet mockSheet;
+
+	MockPaymentOption mockPaymentOption;
+
+	MockUserExpenses mockUserExpenses;
+
+	MockSheetExpenses mockSheetExpenses;
+
+	MockInvestment mockInvestment;
+
 	public MockUser() {
+		this.mockPaymentOption = new MockPaymentOption();
+		this.mockSheet = new MockSheet();
+		this.mockUserExpenses = new MockUserExpenses();
+		this.mockSheetExpenses = new MockSheetExpenses();
+		this.mockInvestment = new MockInvestment();
 	}
 
 	public User generateMockUser(Long seed) {
@@ -29,12 +44,15 @@ public class MockUser {
 		return user;
 	}
 
-	public User generateMockUserComplete(List<PaymentOption> paymentOptions, List<Sheet> sheets,
-			List<Investment> investments, List<UserExpenses> savedExpenses, Long seed) {
+	public User generateMockUserComplete(Long seed) {
 		User user = this.generateMockUser(seed);
-		user.setPaymentOptions(paymentOptions);
-		user.setSavedExpenses(savedExpenses);
+		List<PaymentOption> paymentOptions = this.mockPaymentOption.generateMockPaymentOptions(user, 1L, 1);
+		List<Sheet> sheets = this.mockSheet.generateMockSheets(user, 1L, 1);
+		List<Investment> investments = this.mockInvestment.generateMockInvestments(user, 1L, 1);
+		List<UserExpenses> userExpenses = this.mockUserExpenses.generateMockUserExpenses(user, 1L, 1);
 		user.setInvestments(investments);
+		user.setPaymentOptions(paymentOptions);
+		user.setSavedExpenses(userExpenses);
 		user.setSheets(sheets);
 		return user;
 	}
