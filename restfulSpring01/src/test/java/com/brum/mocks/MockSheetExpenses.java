@@ -2,44 +2,32 @@ package com.brum.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
 
 public class MockSheetExpenses {
 
-	private final Random random;
-
-	public MockSheetExpenses(long seed) {
-		this.random = new Random(seed);
+	public MockSheetExpenses() {
+		super();
 	}
 
-	public SheetExpenses generateMockSheetExpense(Sheet sheet) {
-		Long id = random.nextLong();
-		String name = this.generateRandomString("Expense", random.nextInt(1000));
-		double value = random.nextDouble() * 1000;
-		String category = this.generateRandomString("Category", random.nextInt(10));
-		boolean isStaticValue = random.nextBoolean();
+	public SheetExpenses generateMockSheetExpense(Sheet sheet, Long seed) {
+		Long id = seed;
+		String name = "Expense" + seed.toString();
+		double value = 1000 + seed;
+		String category = "Category" + seed.toString();
+		boolean isStaticValue = seed % 2 == 0;
 
 		return new SheetExpenses(id, name, value, category, isStaticValue, sheet);
 	}
 
-	public List<SheetExpenses> generateMockSheetExpenses(Sheet sheet) {
-		int count = random.nextInt(5);
+	public List<SheetExpenses> generateMockSheetExpenses(Sheet sheet, Long seed, int size) {
 		List<SheetExpenses> expenses = new ArrayList<SheetExpenses>();
-		for (int i = 0; i < count; i++) {
-			expenses.add(this.generateMockSheetExpense(sheet));
+		for (Long i = seed; i < seed + size; i++) {
+			expenses.add(this.generateMockSheetExpense(sheet, seed));
 		}
 		return expenses;
-	}
-
-	private String generateRandomString(String prefix, int length) {
-		StringBuilder sb = new StringBuilder(prefix);
-		for (int i = 0; i < length; i++) {
-			sb.append((char) ('a' + random.nextInt(26)));
-		}
-		return sb.toString();
 	}
 
 }

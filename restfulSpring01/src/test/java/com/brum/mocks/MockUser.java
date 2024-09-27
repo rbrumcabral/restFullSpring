@@ -2,7 +2,6 @@ package com.brum.mocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import com.brum.domain.entities.Investment;
 import com.brum.domain.entities.PaymentOption;
@@ -12,17 +11,14 @@ import com.brum.domain.entities.UserExpenses;
 
 public class MockUser {
 
-	private final Random random;
-
-	public MockUser(long seed) {
-		this.random = new Random(seed);
+	public MockUser() {
 	}
 
-	public User generateMockUser() {
-		long id = random.nextInt(100);
-		String fullName = this.generateRandomString("User", 5);
-		String email = this.generateRandomString("user", 5) + "@example.com";
-		String password = this.generateRandomString("pass", 8);
+	public User generateMockUser(Long seed) {
+		long id = seed;
+		String fullName = "User" + seed.toString();
+		String email = "user" + seed.toString() + "@example.com";
+		String password = "pass" + seed.toString();
 
 		List<PaymentOption> paymentOptions = new ArrayList<>();
 		List<Sheet> sheets = new ArrayList<>();
@@ -34,21 +30,13 @@ public class MockUser {
 	}
 
 	public User generateMockUserComplete(List<PaymentOption> paymentOptions, List<Sheet> sheets,
-			List<Investment> investments, List<UserExpenses> savedExpenses) {
-		User user = this.generateMockUser();
+			List<Investment> investments, List<UserExpenses> savedExpenses, Long seed) {
+		User user = this.generateMockUser(seed);
 		user.setPaymentOptions(paymentOptions);
 		user.setSavedExpenses(savedExpenses);
 		user.setInvestments(investments);
 		user.setSheets(sheets);
 		return user;
-	}
-
-	private String generateRandomString(String prefix, int length) {
-		StringBuilder sb = new StringBuilder(prefix);
-		for (int i = 0; i < length; i++) {
-			sb.append((char) ('a' + random.nextInt(26)));
-		}
-		return sb.toString();
 	}
 
 }
