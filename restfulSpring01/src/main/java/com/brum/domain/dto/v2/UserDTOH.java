@@ -215,7 +215,7 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 	public String toString() {
 		return "UserDTOH [key=" + key + ", fullName=" + fullName + ", email=" + email + ", password=" + password
 				+ ", paymentOptions=" + paymentOptions + ", sheets=" + sheets + ", investments=" + investments
-				+ ", savedExpenses=" + savedExpenses + "]";
+				+ ", savedExpenses=" + savedExpenses + ", Links=" + this.getLinks() +"]";
 	}
 
 }
