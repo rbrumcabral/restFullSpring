@@ -34,6 +34,13 @@ public class PaymentOption {
 	public PaymentOption() {
 	}
 
+	public PaymentOption(Long id, String name, double creditLimit, User user) {
+		this.id = id;
+		this.name = name;
+		this.creditLimit = creditLimit;
+		this.user = user;
+	}
+
 	public PaymentOption(String name, double limit) {
 		this.name = name;
 		this.creditLimit = limit;

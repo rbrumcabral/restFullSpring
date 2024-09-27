@@ -29,6 +29,17 @@ public abstract class BaseExpenses {
 	@Column(name = "is_static_value", nullable = false)
 	protected boolean isStaticValue;
 
+	public BaseExpenses() {
+	}
+
+	public BaseExpenses(long id, String name, double value, String category, boolean isStaticValue) {
+		this.id = id;
+		this.name = name;
+		this.value = value;
+		this.category = category;
+		this.isStaticValue = isStaticValue;
+	}
+
 	public long getId() {
 		return id;
 	}

@@ -44,6 +44,14 @@ public class Investment {
 		this.user = user;
 	}
 
+	public Investment(long id, String name, double value, String category, User user) {
+		this.id = id;
+		this.name = name;
+		this.value = value;
+		this.category = category;
+		this.user = user;
+	}
+
 	public long getId() {
 		return id;
 	}

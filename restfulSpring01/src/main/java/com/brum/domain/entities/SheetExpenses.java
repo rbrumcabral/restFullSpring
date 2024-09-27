@@ -27,6 +27,11 @@ public class SheetExpenses extends BaseExpenses {
 		this.value = value;
 		this.isStaticValue = isStaticValue;
 	}
+	
+	public SheetExpenses(long id, String name, double value, String category, boolean isStaticValue, Sheet sheet) {
+		super(id, name, value, category, isStaticValue);
+		this.sheet = sheet;
+	}
 
 	public Sheet getSheet() {
 		return this.sheet;

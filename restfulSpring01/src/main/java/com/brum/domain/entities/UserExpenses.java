@@ -18,14 +18,11 @@ public class UserExpenses extends BaseExpenses {
 	private User user;
 
 	public UserExpenses() {
-		super();
 	}
 
-	public UserExpenses(String name, double value, boolean isStaticValue) {
-		super();
-		this.name = name;
-		this.value = value;
-		this.isStaticValue = isStaticValue;
+	public UserExpenses(long id, String name, double value, String category, boolean isStaticValue, User user) {
+		super(id, name, value, category, isStaticValue);
+		this.user = user;
 	}
 
 	public User getUser() {
