@@ -15,6 +15,7 @@ import com.brum.domain.dto.v1.UserDTO;
 import com.brum.domain.dto.v2.UserDTOH;
 import com.brum.domain.entities.User;
 import com.brum.exceptions.entities.NotFoundException;
+import com.brum.exceptions.entities.RequiredObjectIsNull;
 import com.brum.repositories.UserRepository;
 
 @Service
@@ -61,12 +62,22 @@ public class UserService {
 	}
 
 	public UserDTO create(UserDTO user) {
+
+		if (user == null) {
+			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.create.null.persistence"));
+		}
+
 		var entity = user.dtoToEntity();
 		var response = this.repository.save(entity);
 		return new UserDTO(response);
 	}
 
 	public UserDTOH createHateoas(UserDTOH user) {
+
+		if (user == null) {
+			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.create.null.persistence"));
+		}
+
 		var entity = user.dtoToEntity();
 		var response = this.repository.save(entity);
 		var dto = new UserDTOH(response);
@@ -75,9 +86,15 @@ public class UserService {
 	}
 
 	public UserDTO update(UserDTO user) {
+		
+		if (user == null) {
+			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.update.null.persistence"));
+		}
+
 		var entity = this.repository.findById(user.getKey()).orElseThrow(() -> {
 			throw new NotFoundException(this.messages.getMessage("user.service.findById.notFound", user.getKey()));
-		});
+		});		
+		
 		entity.setFullName(user.getFullName());
 		entity.setEmail(user.getEmail());
 		entity.setPassword(user.getPassword());
@@ -87,11 +104,16 @@ public class UserService {
 	}
 
 	public UserDTOH updateHateoas(UserDTOH user) {
+		
+		if (user == null) {
+			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.update.null.persistence"));
+		}
+		
 		UserDTO userDTO = new UserDTO(user);
-	    UserDTO updatedUserDTO = this.update(userDTO);
-	    UserDTOH userDTOH = new UserDTOH(updatedUserDTO);
-	    userDTOH.add(addHateoasLinks(user.getKey()));
-	    return userDTOH;
+		UserDTO updatedUserDTO = this.update(userDTO);
+		UserDTOH userDTOH = new UserDTOH(updatedUserDTO);
+		userDTOH.add(addHateoasLinks(user.getKey()));
+		return userDTOH;
 	}
 
 	public void delete(Long id) {

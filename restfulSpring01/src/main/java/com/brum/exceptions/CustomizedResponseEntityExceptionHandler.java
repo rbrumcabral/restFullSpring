@@ -12,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import com.brum.exceptions.entities.ExceptionResponse;
 import com.brum.exceptions.entities.NotFoundException;
+import com.brum.exceptions.entities.RequiredObjectIsNull;
 
 @ControllerAdvice
 @RestController
@@ -27,6 +28,12 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
 	public final ResponseEntity<ExceptionResponse> handleNotFoundException(Exception ex, WebRequest request){
 		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
 		return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(RequiredObjectIsNull.class)
+	public final ResponseEntity<ExceptionResponse> handleRequiredObjectIsNull(Exception ex, WebRequest request){
+		ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
+		return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
 	}
 		
 
