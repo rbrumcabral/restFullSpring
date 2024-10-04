@@ -31,6 +31,12 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 		this.expenses = expenses;
 		this.user = user;
 	}
+	
+	public SheetDTOH(String name,  User user) {
+		this.name = name;
+		this.user = user;
+		this.expenses = new ArrayList<SheetExpenses>();
+	}
 
 	public SheetDTOH(Sheet sheet) {
 		this.key = sheet.getId();

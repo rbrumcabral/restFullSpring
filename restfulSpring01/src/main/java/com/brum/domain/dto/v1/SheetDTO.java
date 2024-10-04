@@ -30,6 +30,12 @@ public class SheetDTO {
 		this.expenses = expenses;
 		this.user = user;
 	}
+	
+	public SheetDTO(String name,  User user) {
+		this.name = name;
+		this.user = user;
+		this.expenses = new ArrayList<SheetExpenses>();
+	}
 
 	public SheetDTO(Sheet sheet) {
 		this.key = sheet.getId();
