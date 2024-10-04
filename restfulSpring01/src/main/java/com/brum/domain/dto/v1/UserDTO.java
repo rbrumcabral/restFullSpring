@@ -13,10 +13,6 @@ import com.brum.domain.entities.UserExpenses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.OneToMany;
-
 @JsonPropertyOrder({ "id", "fullName", "email", "password", "paymentOptions" })
 public class UserDTO {
 
@@ -56,17 +52,17 @@ public class UserDTO {
 		if (user.getPaymentOptions() != null) {
 			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
 		}
-		
+
 		if (user.getSheets() != null) {
-		    this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = new ArrayList<>(user.getSheets());
 		}
 
 		if (user.getInvestments() != null) {
-		    this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = new ArrayList<>(user.getInvestments());
 		}
 
 		if (user.getSavedExpenses() != null) {
-		    this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
 		}
 	}
 
@@ -83,17 +79,17 @@ public class UserDTO {
 		if (user.getPaymentOptions() != null) {
 			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
 		}
-		
+
 		if (user.getSheets() != null) {
-		    this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = new ArrayList<>(user.getSheets());
 		}
 
 		if (user.getInvestments() != null) {
-		    this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = new ArrayList<>(user.getInvestments());
 		}
 
 		if (user.getSavedExpenses() != null) {
-		    this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
 		}
 	}
 
@@ -111,15 +107,15 @@ public class UserDTO {
 		if (this.paymentOptions != null) {
 			user.setPaymentOptions(new ArrayList<>(this.paymentOptions));
 		}
-		
+
 		if (this.savedExpenses != null) {
 			user.setSavedExpenses(new ArrayList<>(this.savedExpenses));
 		}
-		
+
 		if (this.investments != null) {
 			user.setInvestments(new ArrayList<>(this.investments));
 		}
-		
+
 		if (this.sheets != null) {
 			user.setSheets(new ArrayList<>(this.sheets));
 		}
@@ -215,6 +211,6 @@ public class UserDTO {
 		return "UserDTO [key=" + key + ", fullName=" + fullName + ", email=" + email + ", password=" + password
 				+ ", paymentOptions=" + paymentOptions + ", sheets=" + sheets + ", investments=" + investments
 				+ ", savedExpenses=" + savedExpenses + "]";
-	}	
+	}
 
 }

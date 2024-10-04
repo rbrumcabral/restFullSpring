@@ -1,6 +1,5 @@
 package com.brum.services;
 
-import static org.assertj.core.api.Assertions.fail;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertThrows;
@@ -123,11 +122,11 @@ class UserServiceTests {
 		User user2 = mockUser.generateMockUserComplete(2L);
 		userList.add(user);
 		userList.add(user2);
-		
+
 		when(this.repository.findAll()).thenReturn(userList);
-		
+
 		var response = this.service.findAll();
-		
+
 		assertNotNull(response.get(0));
 		assertNotNull(response.get(0).getKey());
 		assertNotNull(response.get(0).getFullName());
@@ -153,7 +152,7 @@ class UserServiceTests {
 		assertFalse(response.get(0).getSavedExpenses().getFirst().isStaticValue());
 		assertEquals("PaymentOption1", response.get(0).getPaymentOptions().getFirst().getName());
 		assertEquals(1001L, response.get(0).getPaymentOptions().getFirst().getCreditLimit(), 0.01);
-		
+
 		assertNotNull(response.get(1));
 		assertNotNull(response.get(1).getKey());
 		assertNotNull(response.get(1).getFullName());
@@ -179,8 +178,7 @@ class UserServiceTests {
 		assertFalse(response.get(1).getSavedExpenses().getFirst().isStaticValue());
 		assertEquals("PaymentOption1", response.get(1).getPaymentOptions().getFirst().getName());
 		assertEquals(1001L, response.get(1).getPaymentOptions().getFirst().getCreditLimit(), 0.01);
-		
-		
+
 	}
 
 	@Test
@@ -190,11 +188,11 @@ class UserServiceTests {
 		User user2 = mockUser.generateMockUserComplete(2L);
 		userList.add(user);
 		userList.add(user2);
-		
+
 		when(this.repository.findAll()).thenReturn(userList);
-		
+
 		var response = this.service.findAllHateoas();
-		
+
 		assertNotNull(response.get(0));
 		assertNotNull(response.get(0).getKey());
 		assertNotNull(response.get(0).getFullName());
@@ -221,7 +219,7 @@ class UserServiceTests {
 		assertEquals("PaymentOption1", response.get(0).getPaymentOptions().getFirst().getName());
 		assertEquals(1001L, response.get(0).getPaymentOptions().getFirst().getCreditLimit(), 0.01);
 		assertTrue(response.get(0).getLinks().toString().contains("</api/user/v1/1>;rel=\"self\""));
-		
+
 		assertNotNull(response.get(1));
 		assertNotNull(response.get(1).getKey());
 		assertNotNull(response.get(1).getFullName());
@@ -248,7 +246,7 @@ class UserServiceTests {
 		assertEquals("PaymentOption1", response.get(1).getPaymentOptions().getFirst().getName());
 		assertEquals(1001L, response.get(1).getPaymentOptions().getFirst().getCreditLimit(), 0.01);
 		assertTrue(response.get(1).getLinks().toString().contains("</api/user/v1/2>;rel=\"self\""));
-		
+
 	}
 
 	@Test
