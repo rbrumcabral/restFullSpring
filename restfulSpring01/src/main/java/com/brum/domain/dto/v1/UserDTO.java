@@ -11,9 +11,7 @@ import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.User;
 import com.brum.domain.entities.UserExpenses;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "fullName", "email", "password", "paymentOptions" })
 public class UserDTO {
 
 	@JsonProperty("id")
