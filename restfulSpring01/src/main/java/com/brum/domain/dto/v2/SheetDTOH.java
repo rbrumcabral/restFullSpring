@@ -23,7 +23,6 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 	private User user;
 
 	public SheetDTOH() {
-		super();
 	}
 
 	public SheetDTOH(String name, List<SheetExpenses> expenses, User user) {

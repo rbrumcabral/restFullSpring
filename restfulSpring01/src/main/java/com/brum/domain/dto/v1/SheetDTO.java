@@ -21,11 +21,9 @@ public class SheetDTO {
 	private User user;
 
 	public SheetDTO() {
-		super();
 	}
 
 	public SheetDTO(String name, List<SheetExpenses> expenses, User user) {
-		super();
 		this.name = name;
 		this.expenses = expenses;
 		this.user = user;

@@ -18,7 +18,6 @@ public class PaymentOptionDTO {
     private User user;
 
     public PaymentOptionDTO() {
-        super();
     }
 
     public PaymentOptionDTO(String name, double creditLimit, User user) {
