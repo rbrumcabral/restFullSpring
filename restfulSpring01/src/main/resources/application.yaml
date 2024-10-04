@@ -25,3 +25,7 @@ logging:
   file:
     name: app-api.log
     path: /home/app/logs/
+springdoc:
+  pathsToMatch: /api/**/**/**
+  swagger-ui:
+    use-root-path: true
