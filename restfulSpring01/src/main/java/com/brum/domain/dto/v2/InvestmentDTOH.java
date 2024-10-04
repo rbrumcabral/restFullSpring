@@ -2,6 +2,8 @@ package com.brum.domain.dto.v2;
 
 import java.util.Objects;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import com.brum.domain.dto.v1.InvestmentDTO;
 import com.brum.domain.entities.Investment;
 import com.brum.domain.entities.User;
@@ -9,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({ "id", "name", "value", "category", "user" })
-public class InvestmentDTOH {
+public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 
 	@JsonProperty("id")
 	private Long key;
