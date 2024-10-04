@@ -84,6 +84,14 @@ public class Investment {
 		this.category = category;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
