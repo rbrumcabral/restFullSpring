@@ -11,104 +11,104 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "id", "name", "value", "category", "user" })
 public class InvestmentDTOH {
 
-    @JsonProperty("id")
-    private Long key;
-    private String name;
-    private double value;
-    private String category;
-    private User user;
+	@JsonProperty("id")
+	private Long key;
+	private String name;
+	private double value;
+	private String category;
+	private User user;
 
-    public InvestmentDTOH() {
-        super();
-    }
+	public InvestmentDTOH() {
+	}
 
-    public InvestmentDTOH(String name, double value, String category, User user) {
-        this.name = name;
-        this.value = value;
-        this.category = category;
-        this.user = user;
-    }
-    
-    public InvestmentDTOH(InvestmentDTO investment) {
-        this.key = investment.getKey();
-        this.name = investment.getName();
-        this.value = investment.getValue();
-        this.category = investment.getCategory();
-        this.user = investment.getUser();
-    }
+	public InvestmentDTOH(String name, double value, String category, User user) {
+		this.name = name;
+		this.value = value;
+		this.category = category;
+		this.user = user;
+	}
 
-    public InvestmentDTOH(Investment investment) {
-        this.key = investment.getId();
-        this.name = investment.getName();
-        this.value = investment.getValue();
-        this.category = investment.getCategory();
-        this.user = investment.getUser();
-    }
+	public InvestmentDTOH(InvestmentDTO investment) {
+		this.key = investment.getKey();
+		this.name = investment.getName();
+		this.value = investment.getValue();
+		this.category = investment.getCategory();
+		this.user = investment.getUser();
+	}
 
-    public Long getKey() {
-        return key;
-    }
+	public InvestmentDTOH(Investment investment) {
+		this.key = investment.getId();
+		this.name = investment.getName();
+		this.value = investment.getValue();
+		this.category = investment.getCategory();
+		this.user = investment.getUser();
+	}
 
-    public void setKey(Long key) {
-        this.key = key;
-    }
+	public Long getKey() {
+		return key;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setKey(Long key) {
+		this.key = key;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public double getValue() {
-        return value;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setValue(double value) {
-        this.value = value;
-    }
+	public double getValue() {
+		return value;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public void setValue(double value) {
+		this.value = value;
+	}
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
+	public String getCategory() {
+		return category;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setCategory(String category) {
+		this.category = category;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public User getUser() {
+		return user;
+	}
 
-    public Investment dtoToEntity() {
-        return new Investment(this.key, this.name, this.value, this.category, this.user);
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(category, key, name, user, value);
-    }
+	public Investment dtoToEntity() {
+		return new Investment(this.key, this.name, this.value, this.category, this.user);
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        InvestmentDTOH other = (InvestmentDTOH) obj;
-        return Objects.equals(category, other.category) && key.equals(other.key) && Objects.equals(name, other.name)
-                && Objects.equals(user, other.user) && Double.compare(value, other.value) == 0;
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(category, key, name, user, value);
+	}
 
-    @Override
-    public String toString() {
-        return "InvestmentDTO [key=" + key + ", name=" + name + ", value=" + value + ", category=" + category + ", user=" + user + "]";
-    }
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		InvestmentDTOH other = (InvestmentDTOH) obj;
+		return Objects.equals(category, other.category) && key.equals(other.key) && Objects.equals(name, other.name)
+				&& Objects.equals(user, other.user) && Double.compare(value, other.value) == 0;
+	}
+
+	@Override
+	public String toString() {
+		return "InvestmentDTO [key=" + key + ", name=" + name + ", value=" + value + ", category=" + category
+				+ ", user=" + user + "]";
+	}
 }
