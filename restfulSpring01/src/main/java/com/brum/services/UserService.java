@@ -12,8 +12,11 @@ import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import com.brum.controllers.UserController;
+import com.brum.domain.dto.v1.InvestmentDTO;
+import com.brum.domain.dto.v1.PaymentOptionDTO;
 import com.brum.domain.dto.v1.SheetDTO;
 import com.brum.domain.dto.v1.UserDTO;
+import com.brum.domain.dto.v1.UserExpensesDTO;
 import com.brum.domain.dto.v2.UserDTOH;
 import com.brum.domain.entities.User;
 import com.brum.exceptions.entities.NotFoundException;
@@ -88,39 +91,48 @@ public class UserService {
 	}
 
 	public UserDTO update(UserDTO user) {
-		
+
 		if (user == null) {
 			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.update.null.persistence"));
 		}
 
 		var entity = this.repository.findById(user.getKey()).orElseThrow(() -> {
 			throw new NotFoundException(this.messages.getMessage("user.service.findById.notFound", user.getKey()));
-		});		
-		
+		});
+
 		entity.setFullName(user.getFullName());
 		entity.setEmail(user.getEmail());
 		entity.setPassword(user.getPassword());
-		
-		if (user.getSheets() != null) {
-			entity.setSheets(user.getSheets().stream()
-				    .map(SheetDTO::dtoToEntity)
-				    .collect(Collectors.toList()));
+
+		if (user.getInvestments() != null) {
+			entity.setInvestments(
+					user.getInvestments().stream().map(InvestmentDTO::dtoToEntity).collect(Collectors.toList()));
 		}
-		
-		
-	//	entity.setPaymentOptions(user.getPaymentOptions());
-	//	entity.setPaymentOptions(user.getPaymentOptions());
-	//	entity.setPaymentOptions(user.getPaymentOptions());
+
+		if (user.getSheets() != null) {
+			entity.setSheets(user.getSheets().stream().map(SheetDTO::dtoToEntity).collect(Collectors.toList()));
+		}
+
+		if (user.getPaymentOptions() != null) {
+			entity.setPaymentOptions(
+					user.getPaymentOptions().stream().map(PaymentOptionDTO::dtoToEntity).collect(Collectors.toList()));
+		}
+
+		if (user.getSavedExpenses() != null) {
+			entity.setSavedExpenses(
+					user.getSavedExpenses().stream().map(UserExpensesDTO::dtoToEntity).collect(Collectors.toList()));
+		}
+
 		var response = this.repository.save(entity);
 		return new UserDTO(response);
 	}
 
 	public UserDTOH updateHateoas(UserDTOH user) {
-		
+
 		if (user == null) {
 			throw new RequiredObjectIsNull(this.messages.getMessage("user.service.update.null.persistence"));
 		}
-		
+
 		UserDTO userDTO = new UserDTO(user);
 		UserDTO updatedUserDTO = this.update(userDTO);
 		UserDTOH userDTOH = new UserDTOH(updatedUserDTO);
