@@ -3,10 +3,12 @@ package com.brum.domain.dto.v1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.brum.domain.dto.v2.SheetDTOH;
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
+import com.brum.domain.entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -16,13 +18,13 @@ public class SheetDTO {
 	@JsonProperty("id")
 	private Long key;
 	private String name;
-	private List<SheetExpenses> expenses;
-	private Long userId;
+	private List<SheetExpensesDTO> expenses;
+	private long userId;
 
 	public SheetDTO() {
 	}
 
-	public SheetDTO(String name, List<SheetExpenses> expenses, Long user) {
+	public SheetDTO(String name, List<SheetExpensesDTO> expenses, Long user) {
 		this.name = name;
 		this.expenses = expenses;
 		this.userId = user;
@@ -31,29 +33,33 @@ public class SheetDTO {
 	public SheetDTO(String name, Long user) {
 		this.name = name;
 		this.userId = user;
-		this.expenses = new ArrayList<SheetExpenses>();
+		this.expenses = new ArrayList<SheetExpensesDTO>();
 	}
 
 	public SheetDTO(Sheet sheet) {
 		this.key = sheet.getId();
 		this.name = sheet.getName();
 		this.userId = sheet.getUser().getId();
-		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
-			this.expenses = sheet.getExpenses();
+			this.expenses = sheet.getExpenses().stream().map(SheetExpensesDTO::new).collect(Collectors.toList());
+		} else {
+			this.expenses = new ArrayList<SheetExpensesDTO>();
 		}
+
 	}
 
 	public SheetDTO(SheetDTOH sheet) {
 		this.key = sheet.getKey();
 		this.name = sheet.getName();
 		this.userId = sheet.getUserId();
-		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
-			this.expenses = sheet.getExpenses();
+			this.expenses = sheet.getExpenses().stream().map(SheetExpensesDTO::new).collect(Collectors.toList());
+		} else {
+			this.expenses = new ArrayList<SheetExpensesDTO>();
 		}
+
 	}
 
 	public Long getKey() {
@@ -72,11 +78,11 @@ public class SheetDTO {
 		this.name = name;
 	}
 
-	public List<SheetExpenses> getExpenses() {
+	public List<SheetExpensesDTO> getExpenses() {
 		return expenses;
 	}
 
-	public void setExpenses(List<SheetExpenses> expenses) {
+	public void setExpenses(List<SheetExpensesDTO> expenses) {
 		this.expenses = expenses;
 	}
 
@@ -92,9 +98,11 @@ public class SheetDTO {
 		Sheet sheet = new Sheet();
 		sheet.setId(this.key);
 		sheet.setName(this.name);
+		sheet.setUser(new User());
 		sheet.getUser().setId((this.userId));
+
 		if (this.expenses != null) {
-			sheet.setExpenses(this.expenses);
+			sheet.setExpenses(this.expenses.stream().map(SheetExpensesDTO::dtoToEntity).collect(Collectors.toList()));
 		} else {
 			sheet.setExpenses(new ArrayList<SheetExpenses>());
 		}

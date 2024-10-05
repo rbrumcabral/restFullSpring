@@ -3,6 +3,7 @@ package com.brum.domain.dto.v2;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.hateoas.RepresentationModel;
 
@@ -15,7 +16,8 @@ import com.brum.domain.entities.UserExpenses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "fullName", "email", "password", "paymentOptions" })
+@JsonPropertyOrder({ "id", "fullName", "email", "password", "paymentOptions", "sheets", "investmenst",
+		"savedExpenses" })
 public class UserDTOH extends RepresentationModel<UserDTOH> {
 
 	@JsonProperty("id")
@@ -23,10 +25,10 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 	private String fullName;
 	private String email;
 	private String password;
-	private List<PaymentOption> paymentOptions;
-	private List<Sheet> sheets;
-	private List<Investment> investments;
-	private List<UserExpenses> savedExpenses;
+	private List<PaymentOptionDTOH> paymentOptions;
+	private List<SheetDTOH> sheets;
+	private List<InvestmentDTOH> investments;
+	private List<UserExpensesDTOH> savedExpenses;
 
 	public UserDTOH() {
 	}
@@ -35,10 +37,10 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTOH>();
+		this.sheets = new ArrayList<SheetDTOH>();
+		this.investments = new ArrayList<InvestmentDTOH>();
+		this.savedExpenses = new ArrayList<UserExpensesDTOH>();
 	}
 
 	public UserDTOH(User user) {
@@ -46,24 +48,26 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTOH>();
+		this.sheets = new ArrayList<SheetDTOH>();
+		this.investments = new ArrayList<InvestmentDTOH>();
+		this.savedExpenses = new ArrayList<UserExpensesDTOH>();
 
 		if (user.getPaymentOptions() != null) {
-			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
+			this.paymentOptions = user.getPaymentOptions().stream().map(PaymentOptionDTOH::new)
+					.collect(Collectors.toList());
 		}
 		if (user.getSheets() != null) {
-			this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = user.getSheets().stream().map(SheetDTOH::new).collect(Collectors.toList());
 		}
 
 		if (user.getInvestments() != null) {
-			this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = user.getInvestments().stream().map(InvestmentDTOH::new).collect(Collectors.toList());
 		}
 
 		if (user.getSavedExpenses() != null) {
-			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = user.getSavedExpenses().stream().map(UserExpensesDTOH::new)
+					.collect(Collectors.toList());
 		}
 	}
 
@@ -72,25 +76,26 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTOH>();
+		this.sheets = new ArrayList<SheetDTOH>();
+		this.investments = new ArrayList<InvestmentDTOH>();
+		this.savedExpenses = new ArrayList<UserExpensesDTOH>();
 
 		if (user.getPaymentOptions() != null) {
-			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
+			this.paymentOptions = user.getPaymentOptions().stream().map(PaymentOptionDTOH::new)
+					.collect(Collectors.toList());
 		}
-
 		if (user.getSheets() != null) {
-			this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = user.getSheets().stream().map(SheetDTOH::new).collect(Collectors.toList());
 		}
 
 		if (user.getInvestments() != null) {
-			this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = user.getInvestments().stream().map(InvestmentDTOH::new).collect(Collectors.toList());
 		}
 
 		if (user.getSavedExpenses() != null) {
-			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = user.getSavedExpenses().stream().map(UserExpensesDTOH::new)
+					.collect(Collectors.toList());
 		}
 	}
 
@@ -106,20 +111,23 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		user.setSheets(new ArrayList<Sheet>());
 
 		if (this.paymentOptions != null) {
-			user.setPaymentOptions(new ArrayList<>(this.paymentOptions));
+			user.setPaymentOptions(
+					this.paymentOptions.stream().map(PaymentOptionDTOH::dtoToEntity).collect(Collectors.toList()));
 		}
-
-		if (this.savedExpenses != null) {
-			user.setSavedExpenses(new ArrayList<>(this.savedExpenses));
+		if (this.sheets != null) {
+			user.setSheets(this.sheets.stream().map(SheetDTOH::dtoToEntity).collect(Collectors.toList()));
 		}
 
 		if (this.investments != null) {
-			user.setInvestments(new ArrayList<>(this.investments));
+			user.setInvestments(
+					this.investments.stream().map(InvestmentDTOH::dtoToEntity).collect(Collectors.toList()));
 		}
 
-		if (this.sheets != null) {
-			user.setSheets(new ArrayList<>(this.sheets));
+		if (this.savedExpenses != null) {
+			user.setSavedExpenses(
+					this.savedExpenses.stream().map(UserExpensesDTOH::dtoToEntity).collect(Collectors.toList()));
 		}
+
 		return user;
 	}
 
@@ -155,35 +163,35 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		this.password = password;
 	}
 
-	public List<PaymentOption> getPaymentOptions() {
+	public List<PaymentOptionDTOH> getPaymentOptions() {
 		return paymentOptions;
 	}
 
-	public void setPaymentOptions(List<PaymentOption> paymentOptions) {
+	public void setPaymentOptions(List<PaymentOptionDTOH> paymentOptions) {
 		this.paymentOptions = paymentOptions;
 	}
 
-	public List<Sheet> getSheets() {
+	public List<SheetDTOH> getSheets() {
 		return sheets;
 	}
 
-	public void setSheets(List<Sheet> sheets) {
+	public void setSheets(List<SheetDTOH> sheets) {
 		this.sheets = sheets;
 	}
 
-	public List<Investment> getInvestments() {
+	public List<InvestmentDTOH> getInvestments() {
 		return investments;
 	}
 
-	public void setInvestments(List<Investment> investments) {
+	public void setInvestments(List<InvestmentDTOH> investments) {
 		this.investments = investments;
 	}
 
-	public List<UserExpenses> getSavedExpenses() {
+	public List<UserExpensesDTOH> getSavedExpenses() {
 		return savedExpenses;
 	}
 
-	public void setSavedExpenses(List<UserExpenses> savedExpenses) {
+	public void setSavedExpenses(List<UserExpensesDTOH> savedExpenses) {
 		this.savedExpenses = savedExpenses;
 	}
 
@@ -215,7 +223,7 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 	public String toString() {
 		return "UserDTOH [key=" + key + ", fullName=" + fullName + ", email=" + email + ", password=" + password
 				+ ", paymentOptions=" + paymentOptions + ", sheets=" + sheets + ", investments=" + investments
-				+ ", savedExpenses=" + savedExpenses + ", Links=" + this.getLinks() +"]";
+				+ ", savedExpenses=" + savedExpenses + ", Links=" + this.getLinks() + "]";
 	}
 
 }

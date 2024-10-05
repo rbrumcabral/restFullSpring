@@ -11,97 +11,104 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "id", "name", "creditLimit", "user" })
 public class PaymentOptionDTOH {
 	@JsonProperty("id")
-    private Long key;
-    private String name;
-    private double creditLimit;
-    private User user;
+	private long key;
+	private String name;
+	private double creditLimit;
+	private long userId;
 
-    public PaymentOptionDTOH() {
-    }
+	public PaymentOptionDTOH() {
+	}
 
-    public PaymentOptionDTOH(String name, double creditLimit, User user) {
-        this.name = name;
-        this.creditLimit = creditLimit;
-        this.user = user;
-    }
+	public PaymentOptionDTOH(String name, double creditLimit, long userId) {
+		this.name = name;
+		this.creditLimit = creditLimit;
+		this.userId = userId;
+	}
 
-    public PaymentOptionDTOH(PaymentOption paymentOption) {
-        this.key = paymentOption.getId();
-        this.name = paymentOption.getName();
-        this.creditLimit = paymentOption.getCreditLimit();
-        this.user = paymentOption.getUser();
-    }
-    
-    public PaymentOptionDTOH(PaymentOptionDTO paymentOption) {
-        this.key = paymentOption.getKey();
-        this.name = paymentOption.getName();
-        this.creditLimit = paymentOption.getCreditLimit();
-        this.user = paymentOption.getUser();
-    }
-    
-    public PaymentOptionDTOH(PaymentOptionDTOH paymentOption) {
-        this.key = paymentOption.getKey();
-        this.name = paymentOption.getName();
-        this.creditLimit = paymentOption.getCreditLimit();
-        this.user = paymentOption.getUser();
-    }
+	public PaymentOptionDTOH(PaymentOption paymentOption) {
+		this.key = paymentOption.getId();
+		this.name = paymentOption.getName();
+		this.creditLimit = paymentOption.getCreditLimit();
+		this.userId = paymentOption.getUser().getId();
+	}
 
-    public Long getKey() {
-        return key;
-    }
+	public PaymentOptionDTOH(PaymentOptionDTO paymentOption) {
+		this.key = paymentOption.getKey();
+		this.name = paymentOption.getName();
+		this.creditLimit = paymentOption.getCreditLimit();
+		this.userId = paymentOption.getUserId();
+	}
 
-    public void setKey(Long key) {
-        this.key = key;
-    }
+	public PaymentOptionDTOH(PaymentOptionDTOH paymentOption) {
+		this.key = paymentOption.getKey();
+		this.name = paymentOption.getName();
+		this.creditLimit = paymentOption.getCreditLimit();
+		this.userId = paymentOption.getUserId();
+	}
 
-    public String getName() {
-        return name;
-    }
+	public long getKey() {
+		return key;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setKey(long key) {
+		this.key = key;
+	}
 
-    public double getCreditLimit() {
-        return creditLimit;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setCreditLimit(double creditLimit) {
-        this.creditLimit = creditLimit;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public double getCreditLimit() {
+		return creditLimit;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setCreditLimit(double creditLimit) {
+		this.creditLimit = creditLimit;
+	}
 
-    public PaymentOption dtoToEntity() {
-        return new PaymentOption(this.key, this.name, this.creditLimit, this.user);
-    }
+	public long getUserId() {
+		return userId;
+	}
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(creditLimit, key, name, user);
-    }
+	public void setUserId(long user) {
+		this.userId = user;
+	}
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        PaymentOptionDTOH other = (PaymentOptionDTOH) obj;
-        return Double.compare(other.creditLimit, creditLimit) == 0 && Objects.equals(key, other.key)
-                && Objects.equals(name, other.name) && Objects.equals(user, other.user);
-    }
+	public PaymentOption dtoToEntity() {
+		PaymentOption entity = new PaymentOption();
+		entity.setId(this.key);
+		entity.setName(this.name);
+		entity.setCreditLimit(this.creditLimit);
+		entity.setUser(new User());
+		entity.getUser().setId(this.userId);
+		return entity;
+	}
 
-    @Override
-    public String toString() {
-        return "PaymentOptionDTO [key=" + key + ", name=" + name + ", creditLimit=" + creditLimit + ", user=" + user + "]";
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hash(creditLimit, key, name, userId);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PaymentOptionDTOH other = (PaymentOptionDTOH) obj;
+		return Double.compare(other.creditLimit, creditLimit) == 0 && Objects.equals(key, other.key)
+				&& Objects.equals(name, other.name) && Objects.equals(userId, other.userId);
+	}
+
+	@Override
+	public String toString() {
+		return "PaymentOptionDTO [key=" + key + ", name=" + name + ", creditLimit=" + creditLimit + ", user=" + userId
+				+ "]";
+	}
 }

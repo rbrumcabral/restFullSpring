@@ -17,9 +17,18 @@ public class SheetExpensesDTO {
 	protected double value;
 	protected String category;
 	protected boolean isStaticValue;
-	private Sheet sheet;
+	private long sheetId;
 
 	public SheetExpensesDTO() {
+	}
+
+	public SheetExpensesDTO(SheetExpenses entity) {
+		this.key = entity.getId();
+		this.name = entity.getName();
+		this.value = entity.getValue();
+		this.category = entity.getCategory();
+		this.isStaticValue = entity.isStaticValue();
+		this.sheetId = entity.getSheet().getId();
 	}
 
 	public SheetExpensesDTO(SheetExpensesDTO sheetExpenses) {
@@ -28,7 +37,7 @@ public class SheetExpensesDTO {
 		this.value = sheetExpenses.getValue();
 		this.category = sheetExpenses.getCategory();
 		this.isStaticValue = sheetExpenses.isStaticValue();
-		this.sheet = sheetExpenses.getSheet();
+		this.sheetId = sheetExpenses.getSheetId();
 	}
 
 	public SheetExpensesDTO(SheetExpensesDTOH sheetExpenses) {
@@ -37,15 +46,15 @@ public class SheetExpensesDTO {
 		this.value = sheetExpenses.getValue();
 		this.category = sheetExpenses.getCategory();
 		this.isStaticValue = sheetExpenses.isStaticValue();
-		this.sheet = sheetExpenses.getSheet();
+		this.sheetId = sheetExpenses.getSheetId();
 	}
-	
-	public SheetExpensesDTO(String name, double value, String category, boolean isStaticValue, Sheet sheet) {
+
+	public SheetExpensesDTO(String name, double value, String category, boolean isStaticValue, long sheetId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
 		this.isStaticValue = isStaticValue;
-		this.sheet = sheet;
+		this.sheetId = sheetId;
 	}
 
 	public long getKey() {
@@ -88,19 +97,20 @@ public class SheetExpensesDTO {
 		this.isStaticValue = isStaticValue;
 	}
 
-	public Sheet getSheet() {
-		return sheet;
+	public long getSheetId() {
+		return sheetId;
 	}
 
-	public void setSheet(Sheet sheet) {
-		this.sheet = sheet;
+	public void setSheet(long sheetId) {
+		this.sheetId = sheetId;
 	}
-	
+
 	public SheetExpenses dtoToEntity() {
 		SheetExpenses entity = new SheetExpenses();
 		entity.setId(this.key);
 		entity.setName(this.name);
-		entity.setSheet(this.sheet);
+		entity.setSheet(new Sheet());
+		entity.getSheet().setId(this.sheetId);
 		entity.setStaticValue(this.isStaticValue);
 		entity.setCategory(this.category);
 		entity.setValue(this.value);
@@ -109,7 +119,7 @@ public class SheetExpensesDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, isStaticValue, key, name, sheet, value);
+		return Objects.hash(category, isStaticValue, key, name, sheetId, value);
 	}
 
 	@Override
@@ -122,14 +132,14 @@ public class SheetExpensesDTO {
 			return false;
 		SheetExpensesDTO other = (SheetExpensesDTO) obj;
 		return Objects.equals(category, other.category) && isStaticValue == other.isStaticValue && key == other.key
-				&& Objects.equals(name, other.name) && Objects.equals(sheet, other.sheet)
+				&& Objects.equals(name, other.name) && Objects.equals(sheetId, other.sheetId)
 				&& Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 
 	@Override
 	public String toString() {
 		return "SheetExpensesDTO [key=" + key + ", name=" + name + ", value=" + value + ", category=" + category
-				+ ", isStaticValue=" + isStaticValue + ", sheet=" + sheet + "]";
+				+ ", isStaticValue=" + isStaticValue + ", sheet=" + sheetId + "]";
 	}
 
 }

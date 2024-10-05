@@ -10,8 +10,8 @@ import com.brum.domain.entities.SheetExpenses;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name", "category", "value", "isStaticValue", "sheet"})
-public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH>{
+@JsonPropertyOrder({ "id", "name", "category", "value", "isStaticValue", "sheet" })
+public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH> {
 
 	@JsonProperty("id")
 	protected long key;
@@ -19,9 +19,18 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH>{
 	protected double value;
 	protected String category;
 	protected boolean isStaticValue;
-	private Sheet sheet;
-	
+	private long sheetId;
+
 	public SheetExpensesDTOH() {
+	}
+
+	public SheetExpensesDTOH(SheetExpenses entity) {
+		this.key = entity.getId();
+		this.name = entity.getName();
+		this.value = entity.getValue();
+		this.category = entity.getCategory();
+		this.isStaticValue = entity.isStaticValue();
+		this.sheetId = entity.getSheet().getId();
 	}
 
 	public SheetExpensesDTOH(SheetExpensesDTOH sheetExpenses) {
@@ -30,26 +39,26 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH>{
 		this.value = sheetExpenses.getValue();
 		this.category = sheetExpenses.getCategory();
 		this.isStaticValue = sheetExpenses.isStaticValue();
-		this.sheet = sheetExpenses.getSheet();
+		this.sheetId = sheetExpenses.getSheetId();
 	}
 
-	public SheetExpensesDTOH(String name, double value, String category, boolean isStaticValue, Sheet sheet) {
+	public SheetExpensesDTOH(String name, double value, String category, boolean isStaticValue, long sheetId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
 		this.isStaticValue = isStaticValue;
-		this.sheet = sheet;
+		this.sheetId = sheetId;
 	}
-	
+
 	public SheetExpensesDTOH(SheetExpensesDTO sheetExpenses) {
 		this.key = sheetExpenses.getKey();
 		this.name = sheetExpenses.getName();
 		this.value = sheetExpenses.getValue();
 		this.category = sheetExpenses.getCategory();
 		this.isStaticValue = sheetExpenses.isStaticValue();
-		this.sheet = sheetExpenses.getSheet();
+		this.sheetId = sheetExpenses.getSheetId();
 	}
-	
+
 	public long getKey() {
 		return key;
 	}
@@ -90,30 +99,31 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH>{
 		this.isStaticValue = isStaticValue;
 	}
 
-	public Sheet getSheet() {
-		return sheet;
+	public long getSheetId() {
+		return sheetId;
 	}
 
-	public void setSheet(Sheet sheet) {
-		this.sheet = sheet;
+	public void setSheetId(long sheetId) {
+		this.sheetId = sheetId;
 	}
 
 	public SheetExpenses dtoToEntity() {
 		SheetExpenses entity = new SheetExpenses();
 		entity.setId(this.key);
 		entity.setName(this.name);
-		entity.setSheet(this.sheet);
+		entity.setSheet(new Sheet());
+		entity.getSheet().setId(this.sheetId);
 		entity.setStaticValue(this.isStaticValue);
 		entity.setCategory(this.category);
 		entity.setValue(this.value);
 		return entity;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(category, isStaticValue, key, name, sheet, value);
+		result = prime * result + Objects.hash(category, isStaticValue, key, name, sheetId, value);
 		return result;
 	}
 
@@ -127,15 +137,14 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH>{
 			return false;
 		SheetExpensesDTOH other = (SheetExpensesDTOH) obj;
 		return Objects.equals(category, other.category) && isStaticValue == other.isStaticValue && key == other.key
-				&& Objects.equals(name, other.name) && Objects.equals(sheet, other.sheet)
+				&& Objects.equals(name, other.name) && Objects.equals(sheetId, other.sheetId)
 				&& Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 
 	@Override
 	public String toString() {
 		return "SheetExpensesDTOH [key=" + key + ", name=" + name + ", value=" + value + ", category=" + category
-				+ ", isStaticValue=" + isStaticValue + ", sheet=" + sheet + "]";
-	}	
-	
+				+ ", isStaticValue=" + isStaticValue + ", sheet=" + sheetId + "]";
+	}
 
 }

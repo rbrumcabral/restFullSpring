@@ -5,12 +5,14 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import com.brum.controllers.UserController;
+import com.brum.domain.dto.v1.SheetDTO;
 import com.brum.domain.dto.v1.UserDTO;
 import com.brum.domain.dto.v2.UserDTOH;
 import com.brum.domain.entities.User;
@@ -98,7 +100,17 @@ public class UserService {
 		entity.setFullName(user.getFullName());
 		entity.setEmail(user.getEmail());
 		entity.setPassword(user.getPassword());
-		entity.setPaymentOptions(user.getPaymentOptions());
+		
+		if (user.getSheets() != null) {
+			entity.setSheets(user.getSheets().stream()
+				    .map(SheetDTO::dtoToEntity)
+				    .collect(Collectors.toList()));
+		}
+		
+		
+	//	entity.setPaymentOptions(user.getPaymentOptions());
+	//	entity.setPaymentOptions(user.getPaymentOptions());
+	//	entity.setPaymentOptions(user.getPaymentOptions());
 		var response = this.repository.save(entity);
 		return new UserDTO(response);
 	}

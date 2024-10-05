@@ -3,6 +3,7 @@ package com.brum.domain.dto.v1;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import com.brum.domain.dto.v2.UserDTOH;
 import com.brum.domain.entities.Investment;
@@ -11,7 +12,10 @@ import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.User;
 import com.brum.domain.entities.UserExpenses;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+@JsonPropertyOrder({ "id", "fullName", "email", "password", "paymentOptions", "sheets", "investmenst",
+		"savedExpenses" })
 public class UserDTO {
 
 	@JsonProperty("id")
@@ -19,10 +23,10 @@ public class UserDTO {
 	private String fullName;
 	private String email;
 	private String password;
-	private List<PaymentOption> paymentOptions;
-	private List<Sheet> sheets;
-	private List<Investment> investments;
-	private List<UserExpenses> savedExpenses;
+	private List<PaymentOptionDTO> paymentOptions;
+	private List<SheetDTO> sheets;
+	private List<InvestmentDTO> investments;
+	private List<UserExpensesDTO> savedExpenses;
 
 	public UserDTO() {
 	}
@@ -31,10 +35,10 @@ public class UserDTO {
 		this.fullName = fullName;
 		this.email = email;
 		this.password = password;
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTO>();
+		this.sheets = new ArrayList<SheetDTO>();
+		this.investments = new ArrayList<InvestmentDTO>();
+		this.savedExpenses = new ArrayList<UserExpensesDTO>();
 	}
 
 	public UserDTO(User user) {
@@ -42,25 +46,26 @@ public class UserDTO {
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTO>();
+		this.sheets = new ArrayList<SheetDTO>();
+		this.investments = new ArrayList<InvestmentDTO>();
+		this.savedExpenses = new ArrayList<UserExpensesDTO>();
 
 		if (user.getPaymentOptions() != null) {
-			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
+			this.paymentOptions = user.getPaymentOptions().stream().map(PaymentOptionDTO::new)
+					.collect(Collectors.toList());
 		}
-
 		if (user.getSheets() != null) {
-			this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = user.getSheets().stream().map(SheetDTO::new).collect(Collectors.toList());
 		}
 
 		if (user.getInvestments() != null) {
-			this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = user.getInvestments().stream().map(InvestmentDTO::new).collect(Collectors.toList());
 		}
 
 		if (user.getSavedExpenses() != null) {
-			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = user.getSavedExpenses().stream().map(UserExpensesDTO::new)
+					.collect(Collectors.toList());
 		}
 	}
 
@@ -69,25 +74,26 @@ public class UserDTO {
 		this.fullName = user.getFullName();
 		this.email = user.getEmail();
 		this.password = user.getPassword();
-		this.paymentOptions = new ArrayList<PaymentOption>();
-		this.sheets = new ArrayList<Sheet>();
-		this.investments = new ArrayList<Investment>();
-		this.savedExpenses = new ArrayList<UserExpenses>();
+		this.paymentOptions = new ArrayList<PaymentOptionDTO>();
+		this.sheets = new ArrayList<SheetDTO>();
+		this.investments = new ArrayList<InvestmentDTO>();
+		this.savedExpenses = new ArrayList<UserExpensesDTO>();
 
 		if (user.getPaymentOptions() != null) {
-			this.paymentOptions = new ArrayList<>(user.getPaymentOptions());
+			this.paymentOptions = user.getPaymentOptions().stream().map(PaymentOptionDTO::new)
+					.collect(Collectors.toList());
 		}
-
 		if (user.getSheets() != null) {
-			this.sheets = new ArrayList<>(user.getSheets());
+			this.sheets = user.getSheets().stream().map(SheetDTO::new).collect(Collectors.toList());
 		}
 
 		if (user.getInvestments() != null) {
-			this.investments = new ArrayList<>(user.getInvestments());
+			this.investments = user.getInvestments().stream().map(InvestmentDTO::new).collect(Collectors.toList());
 		}
 
 		if (user.getSavedExpenses() != null) {
-			this.savedExpenses = new ArrayList<>(user.getSavedExpenses());
+			this.savedExpenses = user.getSavedExpenses().stream().map(UserExpensesDTO::new)
+					.collect(Collectors.toList());
 		}
 	}
 
@@ -103,20 +109,22 @@ public class UserDTO {
 		user.setSheets(new ArrayList<Sheet>());
 
 		if (this.paymentOptions != null) {
-			user.setPaymentOptions(new ArrayList<>(this.paymentOptions));
+			user.setPaymentOptions(
+					this.paymentOptions.stream().map(PaymentOptionDTO::dtoToEntity).collect(Collectors.toList()));
 		}
-
-		if (this.savedExpenses != null) {
-			user.setSavedExpenses(new ArrayList<>(this.savedExpenses));
+		if (this.sheets != null) {
+			user.setSheets(this.sheets.stream().map(SheetDTO::dtoToEntity).collect(Collectors.toList()));
 		}
 
 		if (this.investments != null) {
-			user.setInvestments(new ArrayList<>(this.investments));
+			user.setInvestments(this.investments.stream().map(InvestmentDTO::dtoToEntity).collect(Collectors.toList()));
 		}
 
-		if (this.sheets != null) {
-			user.setSheets(new ArrayList<>(this.sheets));
+		if (this.savedExpenses != null) {
+			user.setSavedExpenses(
+					this.savedExpenses.stream().map(UserExpensesDTO::dtoToEntity).collect(Collectors.toList()));
 		}
+
 		return user;
 	}
 
@@ -152,35 +160,35 @@ public class UserDTO {
 		this.password = password;
 	}
 
-	public List<PaymentOption> getPaymentOptions() {
+	public List<PaymentOptionDTO> getPaymentOptions() {
 		return paymentOptions;
 	}
 
-	public void setPaymentOptions(List<PaymentOption> paymentOptions) {
+	public void setPaymentOptions(List<PaymentOptionDTO> paymentOptions) {
 		this.paymentOptions = paymentOptions;
 	}
 
-	public List<Sheet> getSheets() {
+	public List<SheetDTO> getSheets() {
 		return sheets;
 	}
 
-	public void setSheets(List<Sheet> sheets) {
+	public void setSheets(List<SheetDTO> sheets) {
 		this.sheets = sheets;
 	}
 
-	public List<Investment> getInvestments() {
+	public List<InvestmentDTO> getInvestments() {
 		return investments;
 	}
 
-	public void setInvestments(List<Investment> investments) {
+	public void setInvestments(List<InvestmentDTO> investments) {
 		this.investments = investments;
 	}
 
-	public List<UserExpenses> getSavedExpenses() {
+	public List<UserExpensesDTO> getSavedExpenses() {
 		return savedExpenses;
 	}
 
-	public void setSavedExpenses(List<UserExpenses> savedExpenses) {
+	public void setSavedExpenses(List<UserExpensesDTO> savedExpenses) {
 		this.savedExpenses = savedExpenses;
 	}
 

@@ -14,20 +14,20 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 
 	@JsonProperty("id")
-	private Long key;
+	private long key;
 	private String name;
 	private double value;
 	private String category;
-	private User user;
+	private long userId;
 
 	public InvestmentDTOH() {
 	}
 
-	public InvestmentDTOH(String name, double value, String category, User user) {
+	public InvestmentDTOH(String name, double value, String category, long userId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
-		this.user = user;
+		this.userId = userId;
 	}
 
 	public InvestmentDTOH(InvestmentDTO investment) {
@@ -35,7 +35,7 @@ public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 		this.name = investment.getName();
 		this.value = investment.getValue();
 		this.category = investment.getCategory();
-		this.user = investment.getUser();
+		this.userId = investment.getUserId();
 	}
 
 	public InvestmentDTOH(Investment investment) {
@@ -43,14 +43,14 @@ public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 		this.name = investment.getName();
 		this.value = investment.getValue();
 		this.category = investment.getCategory();
-		this.user = investment.getUser();
+		this.userId = investment.getUser().getId();
 	}
 
-	public Long getKey() {
+	public long getKey() {
 		return key;
 	}
 
-	public void setKey(Long key) {
+	public void setKey(long key) {
 		this.key = key;
 	}
 
@@ -78,39 +78,50 @@ public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 		this.category = category;
 	}
 
-	public User getUser() {
-		return user;
+	public long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUser(long userId) {
+		this.userId = userId;
 	}
 
 	public Investment dtoToEntity() {
-		return new Investment(this.key, this.name, this.value, this.category, this.user);
+		Investment entity = new Investment();
+		entity.setId(this.key);
+		entity.setName(this.name);
+		entity.setUser(new User());
+		entity.getUser().setId(this.userId);
+		entity.setCategory(this.category);
+		entity.setValue(this.value);
+		
+		return entity;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, key, name, user, value);
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(category, key, name, userId, value);
+		return result;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		InvestmentDTOH other = (InvestmentDTOH) obj;
-		return Objects.equals(category, other.category) && key.equals(other.key) && Objects.equals(name, other.name)
-				&& Objects.equals(user, other.user) && Double.compare(value, other.value) == 0;
+		return Objects.equals(category, other.category) && key == other.key && Objects.equals(name, other.name)
+				&& userId == other.userId && Double.doubleToLongBits(value) == Double.doubleToLongBits(other.value);
 	}
 
 	@Override
 	public String toString() {
 		return "InvestmentDTO [key=" + key + ", name=" + name + ", value=" + value + ", category=" + category
-				+ ", user=" + user + "]";
+				+ ", user=" + userId + "]";
 	}
 }

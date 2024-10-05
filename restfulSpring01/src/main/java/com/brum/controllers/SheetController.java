@@ -28,7 +28,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("api/sheet")
 @Tag(name = "Sheet", description = "Endpoints for managing Sheets")
 public class SheetController {
 

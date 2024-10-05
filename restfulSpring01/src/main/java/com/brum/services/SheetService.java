@@ -5,13 +5,17 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.stereotype.Service;
 
 import com.brum.controllers.SheetController;
 import com.brum.domain.dto.v1.SheetDTO;
+import com.brum.domain.dto.v1.SheetExpensesDTO;
 import com.brum.domain.dto.v2.SheetDTOH;
 import com.brum.domain.entities.Sheet;
 import com.brum.exceptions.entities.NotFoundException;
@@ -30,6 +34,8 @@ public class SheetService {
 
 	@Autowired
 	private UserRepository userRepository;
+
+	Logger logger = LoggerFactory.getLogger(SheetService.class);
 
 	public SheetDTO findById(Long id) {
 		var entity = this.repository.findById(id).orElseThrow(() -> {
@@ -66,9 +72,12 @@ public class SheetService {
 	}
 
 	public SheetDTO create(SheetDTO sheet) {
+
 		if (sheet == null) {
 			throw new RequiredObjectIsNull(this.messages.getMessage("sheet.service.create.null.persistence"));
 		}
+
+		this.logger.info(sheet.toString());
 
 		var userEntity = this.userRepository.findById(sheet.getUserId()).orElseThrow(() -> {
 			throw new NotFoundException(
@@ -116,8 +125,12 @@ public class SheetService {
 
 		entity.setId(sheet.getKey());
 		entity.setName(sheet.getName());
-		entity.setExpenses(sheet.getExpenses());
 		entity.setUser(userEntity);
+
+		if (sheet.getExpenses() != null) {
+			entity.setExpenses(
+					sheet.getExpenses().stream().map(SheetExpensesDTO::dtoToEntity).collect(Collectors.toList()));
+		}
 
 		var response = this.repository.save(entity);
 		return new SheetDTO(response);
