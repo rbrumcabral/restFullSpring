@@ -9,38 +9,37 @@ import org.springframework.hateoas.RepresentationModel;
 import com.brum.domain.dto.v1.SheetDTO;
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
-import com.brum.domain.entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name", "user", "expenses"})
+@JsonPropertyOrder({ "id", "name", "user", "expenses" })
 public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 
 	@JsonProperty("id")
 	private Long key;
 	private String name;
 	private List<SheetExpenses> expenses;
-	private User user;
+	private Long userId;
 
 	public SheetDTOH() {
 	}
 
-	public SheetDTOH(String name, List<SheetExpenses> expenses, User user) {
+	public SheetDTOH(String name, List<SheetExpenses> expenses, Long userId) {
 		this.name = name;
 		this.expenses = expenses;
-		this.user = user;
+		this.userId = userId;
 	}
-	
-	public SheetDTOH(String name,  User user) {
+
+	public SheetDTOH(String name, Long userId) {
 		this.name = name;
-		this.user = user;
+		this.userId = userId;
 		this.expenses = new ArrayList<SheetExpenses>();
 	}
 
 	public SheetDTOH(Sheet sheet) {
 		this.key = sheet.getId();
 		this.name = sheet.getName();
-		this.user = sheet.getUser();
+		this.userId = sheet.getUser().getId();
 		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
@@ -51,7 +50,7 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 	public SheetDTOH(SheetDTO sheet) {
 		this.key = sheet.getKey();
 		this.name = sheet.getName();
-		this.user = sheet.getUser();
+		this.userId = sheet.getUserId();
 		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
@@ -83,19 +82,19 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 		this.expenses = expenses;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long user) {
+		this.userId = user;
 	}
 
 	public Sheet dtoToEntity() {
 		Sheet sheet = new Sheet();
 		sheet.setId(this.key);
 		sheet.setName(this.name);
-		sheet.setUser(this.user);
+		sheet.getUser().setId((this.userId));
 		if (this.expenses != null) {
 			sheet.setExpenses(this.expenses);
 		} else {
@@ -106,7 +105,7 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(expenses, key, name, user);
+		return Objects.hash(expenses, key, name, userId);
 	}
 
 	@Override
@@ -119,11 +118,11 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 			return false;
 		SheetDTOH other = (SheetDTOH) obj;
 		return Objects.equals(expenses, other.expenses) && Objects.equals(key, other.key)
-				&& Objects.equals(name, other.name) && Objects.equals(user, other.user);
+				&& Objects.equals(name, other.name) && Objects.equals(userId, other.userId);
 	}
 
 	@Override
 	public String toString() {
-		return "SheetDTO [key=" + key + ", name=" + name + ", expenses=" + expenses + ", user=" + user + "]";
+		return "SheetDTO [key=" + key + ", name=" + name + ", expenses=" + expenses + ", userId=" + userId + "]";
 	}
 }

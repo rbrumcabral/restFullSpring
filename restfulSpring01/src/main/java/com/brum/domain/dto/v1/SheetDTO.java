@@ -7,38 +7,37 @@ import java.util.Objects;
 import com.brum.domain.dto.v2.SheetDTOH;
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
-import com.brum.domain.entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
-@JsonPropertyOrder({ "id", "name", "user", "expenses"})
+@JsonPropertyOrder({ "id", "name", "user", "expenses" })
 public class SheetDTO {
 
 	@JsonProperty("id")
 	private Long key;
 	private String name;
 	private List<SheetExpenses> expenses;
-	private User user;
+	private Long userId;
 
 	public SheetDTO() {
 	}
 
-	public SheetDTO(String name, List<SheetExpenses> expenses, User user) {
+	public SheetDTO(String name, List<SheetExpenses> expenses, Long user) {
 		this.name = name;
 		this.expenses = expenses;
-		this.user = user;
+		this.userId = user;
 	}
-	
-	public SheetDTO(String name,  User user) {
+
+	public SheetDTO(String name, Long user) {
 		this.name = name;
-		this.user = user;
+		this.userId = user;
 		this.expenses = new ArrayList<SheetExpenses>();
 	}
 
 	public SheetDTO(Sheet sheet) {
 		this.key = sheet.getId();
 		this.name = sheet.getName();
-		this.user = sheet.getUser();
+		this.userId = sheet.getUser().getId();
 		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
@@ -49,7 +48,7 @@ public class SheetDTO {
 	public SheetDTO(SheetDTOH sheet) {
 		this.key = sheet.getKey();
 		this.name = sheet.getName();
-		this.user = sheet.getUser();
+		this.userId = sheet.getUserId();
 		this.expenses = new ArrayList<SheetExpenses>();
 
 		if (sheet.getExpenses() != null) {
@@ -81,19 +80,19 @@ public class SheetDTO {
 		this.expenses = expenses;
 	}
 
-	public User getUser() {
-		return user;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Long user) {
+		this.userId = user;
 	}
 
 	public Sheet dtoToEntity() {
 		Sheet sheet = new Sheet();
 		sheet.setId(this.key);
 		sheet.setName(this.name);
-		sheet.setUser(this.user);
+		sheet.getUser().setId((this.userId));
 		if (this.expenses != null) {
 			sheet.setExpenses(this.expenses);
 		} else {
@@ -104,7 +103,7 @@ public class SheetDTO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(expenses, key, name, user);
+		return Objects.hash(expenses, key, name, userId);
 	}
 
 	@Override
@@ -117,12 +116,12 @@ public class SheetDTO {
 			return false;
 		SheetDTO other = (SheetDTO) obj;
 		return Objects.equals(expenses, other.expenses) && Objects.equals(key, other.key)
-				&& Objects.equals(name, other.name) && Objects.equals(user, other.user);
+				&& Objects.equals(name, other.name) && Objects.equals(userId, other.userId);
 	}
 
 	@Override
 	public String toString() {
-		return "SheetDTO [key=" + key + ", name=" + name + ", expenses=" + expenses + ", user=" + user + "]";
+		return "SheetDTO [key=" + key + ", name=" + name + ", expenses=" + expenses + ", user=" + userId + "]";
 	}
 
 }
