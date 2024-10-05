@@ -18,6 +18,7 @@ import org.junit.jupiter.api.TestInstance.Lifecycle;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -51,11 +52,11 @@ class UserServiceTests {
 
 	@Test
 	void testFindByIdOK() {
-		User user = mockUser.generateMockUserComplete(1L);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
 
-		when(this.repository.findById(1L)).thenReturn(Optional.of(user));
+		when(this.repository.findById((Long) 1L)).thenReturn(Optional.of(user));
 
-		var response = this.service.findById(1L);
+		var response = this.service.findById((Long) 1L);
 
 		assertNotNull(response);
 		assertNotNull(response.getKey());
@@ -67,15 +68,15 @@ class UserServiceTests {
 		assertNotNull(response.getSavedExpenses());
 		assertNotNull(response.getSheets());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -86,10 +87,10 @@ class UserServiceTests {
 
 	@Test
 	void testFindByIdHateoasOK() {
-		User user = mockUser.generateMockUserComplete(1L);
-		when(this.repository.findById(1L)).thenReturn(Optional.of(user));
+		User user = mockUser.generateMockUserComplete((Long) 1L);
+		when(this.repository.findById((Long) 1L)).thenReturn(Optional.of(user));
 
-		var response = this.service.findByIdHateoas(1L);
+		var response = this.service.findByIdHateoas((Long) 1L);
 
 		assertNotNull(response);
 		assertNotNull(response.getKey());
@@ -97,15 +98,15 @@ class UserServiceTests {
 		assertNotNull(response.getEmail());
 		assertNotNull(response.getPassword());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -118,8 +119,8 @@ class UserServiceTests {
 	@Test
 	void testFindAll() {
 		List<User> userList = new ArrayList<User>();
-		User user = mockUser.generateMockUserComplete(1L);
-		User user2 = mockUser.generateMockUserComplete(2L);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
+		User user2 = mockUser.generateMockUserComplete((Long) 2L);
 		userList.add(user);
 		userList.add(user2);
 
@@ -137,15 +138,15 @@ class UserServiceTests {
 		assertNotNull(response.get(0).getSavedExpenses());
 		assertNotNull(response.get(0).getSheets());
 		assertEquals("User1", response.get(0).getFullName());
-		assertEquals(1L, response.get(0).getKey(), 1L);
+		assertEquals((Long) 1L, response.get(0).getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.get(0).getEmail());
 		assertEquals("pass1", response.get(0).getPassword());
-		assertEquals(1L, response.get(0).getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(0).getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.get(0).getInvestments().getFirst().getName());
 		assertEquals(1001L, response.get(0).getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.get(0).getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.get(0).getSheets().getFirst().getName());
-		assertEquals(1L, response.get(0).getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(0).getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.get(0).getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.get(0).getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.get(0).getSavedExpenses().getFirst().getValue(), 0.01);
@@ -163,15 +164,15 @@ class UserServiceTests {
 		assertNotNull(response.get(1).getSavedExpenses());
 		assertNotNull(response.get(1).getSheets());
 		assertEquals("User2", response.get(1).getFullName());
-		assertEquals(2L, response.get(1).getKey(), 1L);
+		assertEquals((Long) 2L, response.get(1).getKey(), (Long) 1L);
 		assertEquals("user2@example.com", response.get(1).getEmail());
 		assertEquals("pass2", response.get(1).getPassword());
-		assertEquals(1L, response.get(1).getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(1).getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.get(1).getInvestments().getFirst().getName());
 		assertEquals(1001L, response.get(1).getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.get(1).getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.get(1).getSheets().getFirst().getName());
-		assertEquals(1L, response.get(1).getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(1).getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.get(1).getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.get(1).getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.get(1).getSavedExpenses().getFirst().getValue(), 0.01);
@@ -184,8 +185,8 @@ class UserServiceTests {
 	@Test
 	void testFindAllHateoas() {
 		List<User> userList = new ArrayList<User>();
-		User user = mockUser.generateMockUserComplete(1L);
-		User user2 = mockUser.generateMockUserComplete(2L);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
+		User user2 = mockUser.generateMockUserComplete((Long) 2L);
 		userList.add(user);
 		userList.add(user2);
 
@@ -203,15 +204,15 @@ class UserServiceTests {
 		assertNotNull(response.get(0).getSavedExpenses());
 		assertNotNull(response.get(0).getSheets());
 		assertEquals("User1", response.get(0).getFullName());
-		assertEquals(1L, response.get(0).getKey(), 1L);
+		assertEquals((Long) 1L, response.get(0).getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.get(0).getEmail());
 		assertEquals("pass1", response.get(0).getPassword());
-		assertEquals(1L, response.get(0).getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(0).getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.get(0).getInvestments().getFirst().getName());
 		assertEquals(1001L, response.get(0).getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.get(0).getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.get(0).getSheets().getFirst().getName());
-		assertEquals(1L, response.get(0).getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(0).getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.get(0).getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.get(0).getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.get(0).getSavedExpenses().getFirst().getValue(), 0.01);
@@ -230,15 +231,15 @@ class UserServiceTests {
 		assertNotNull(response.get(1).getSavedExpenses());
 		assertNotNull(response.get(1).getSheets());
 		assertEquals("User2", response.get(1).getFullName());
-		assertEquals(2L, response.get(1).getKey(), 1L);
+		assertEquals((Long) 2L, response.get(1).getKey(), (Long) 1L);
 		assertEquals("user2@example.com", response.get(1).getEmail());
 		assertEquals("pass2", response.get(1).getPassword());
-		assertEquals(1L, response.get(1).getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(1).getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.get(1).getInvestments().getFirst().getName());
 		assertEquals(1001L, response.get(1).getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.get(1).getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.get(1).getSheets().getFirst().getName());
-		assertEquals(1L, response.get(1).getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.get(1).getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.get(1).getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.get(1).getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.get(1).getSavedExpenses().getFirst().getValue(), 0.01);
@@ -251,8 +252,8 @@ class UserServiceTests {
 
 	@Test
 	void testCreateOK() {
-		User user = mockUser.generateMockUserComplete(1L);
-		when(this.repository.save(user)).thenReturn(user);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
+		when(this.repository.save(Mockito.any())).thenReturn(user);
 
 		var response = this.service.create(new UserDTO(user));
 
@@ -262,15 +263,15 @@ class UserServiceTests {
 		assertNotNull(response.getEmail());
 		assertNotNull(response.getPassword());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey());
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -295,8 +296,8 @@ class UserServiceTests {
 
 	@Test
 	void testCreateHateoasOK() {
-		User user = mockUser.generateMockUserComplete(1L);
-		when(this.repository.save(user)).thenReturn(user);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
+		when(this.repository.save(Mockito.any())).thenReturn(user);
 
 		var response = this.service.createHateoas(new UserDTOH(user));
 
@@ -306,15 +307,15 @@ class UserServiceTests {
 		assertNotNull(response.getEmail());
 		assertNotNull(response.getPassword());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -338,9 +339,9 @@ class UserServiceTests {
 
 	@Test
 	void testUpdateOK() {
-		User user = mockUser.generateMockUserComplete(1L);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
 		when(this.repository.save(user)).thenReturn(user);
-		when(this.repository.findById(1L)).thenReturn(Optional.of(user));
+		when(this.repository.findById((Long) 1L)).thenReturn(Optional.of(user));
 
 		var response = this.service.update(new UserDTO(user));
 
@@ -350,15 +351,15 @@ class UserServiceTests {
 		assertNotNull(response.getEmail());
 		assertNotNull(response.getPassword());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -381,9 +382,9 @@ class UserServiceTests {
 
 	@Test
 	void testUpdateHateoasOK() {
-		User user = mockUser.generateMockUserComplete(1L);
+		User user = mockUser.generateMockUserComplete((Long) 1L);
 		when(this.repository.save(user)).thenReturn(user);
-		when(this.repository.findById(1L)).thenReturn(Optional.of(user));
+		when(this.repository.findById((Long) 1L)).thenReturn(Optional.of(user));
 
 		var response = this.service.updateHateoas(new UserDTOH(user));
 
@@ -393,15 +394,15 @@ class UserServiceTests {
 		assertNotNull(response.getEmail());
 		assertNotNull(response.getPassword());
 		assertEquals("User1", response.getFullName());
-		assertEquals(1L, response.getKey(), 1L);
+		assertEquals((Long) 1L, response.getKey(), (Long) 1L);
 		assertEquals("user1@example.com", response.getEmail());
 		assertEquals("pass1", response.getPassword());
-		assertEquals(1L, response.getInvestments().getFirst().getKey());
+		assertEquals((Long) 1L, response.getInvestments().getFirst().getKey());
 		assertEquals("Investment1", response.getInvestments().getFirst().getName());
 		assertEquals(1001L, response.getInvestments().getFirst().getValue(), 0.001);
 		assertEquals("Category1", response.getInvestments().getFirst().getCategory());
 		assertEquals("Sheet1", response.getSheets().getFirst().getName());
-		assertEquals(1L, response.getSavedExpenses().getFirst().getKey());
+		assertEquals((Long) 1L, response.getSavedExpenses().getFirst().getKey());
 		assertEquals("Expense1", response.getSavedExpenses().getFirst().getName());
 		assertEquals("Category1", response.getSavedExpenses().getFirst().getCategory());
 		assertEquals(1001L, response.getSavedExpenses().getFirst().getValue(), 0.01);
@@ -421,11 +422,6 @@ class UserServiceTests {
 		String actualMessage = exception.getMessage();
 
 		assertEquals(expectedMessage, actualMessage);
-	}
-
-	@Test
-	void testDelete() {
-
 	}
 
 }
