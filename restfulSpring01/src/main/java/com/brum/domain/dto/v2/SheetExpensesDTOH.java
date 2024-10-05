@@ -14,12 +14,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH> {
 
 	@JsonProperty("id")
-	protected long key;
+	protected Long key;
 	protected String name;
 	protected double value;
 	protected String category;
 	protected boolean isStaticValue;
-	private long sheetId;
+	private Long sheetId;
 
 	public SheetExpensesDTOH() {
 	}
@@ -42,7 +42,7 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH> {
 		this.sheetId = sheetExpenses.getSheetId();
 	}
 
-	public SheetExpensesDTOH(String name, double value, String category, boolean isStaticValue, long sheetId) {
+	public SheetExpensesDTOH(String name, double value, String category, boolean isStaticValue, Long sheetId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
@@ -59,11 +59,11 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH> {
 		this.sheetId = sheetExpenses.getSheetId();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -99,11 +99,11 @@ public class SheetExpensesDTOH extends RepresentationModel<SheetExpensesDTOH> {
 		this.isStaticValue = isStaticValue;
 	}
 
-	public long getSheetId() {
+	public Long getSheetId() {
 		return sheetId;
 	}
 
-	public void setSheetId(long sheetId) {
+	public void setSheetId(Long sheetId) {
 		this.sheetId = sheetId;
 	}
 

@@ -11,6 +11,7 @@ import com.brum.domain.dto.v1.SheetDTO;
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
 import com.brum.domain.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -21,18 +22,19 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 	private Long key;
 	private String name;
 	private List<SheetExpensesDTOH> expenses;
-	private long userId;
+	@JsonIgnore
+	private Long userId;
 
 	public SheetDTOH() {
 	}
 
-	public SheetDTOH(String name, List<SheetExpensesDTOH> expenses, long userId) {
+	public SheetDTOH(String name, List<SheetExpensesDTOH> expenses, Long userId) {
 		this.name = name;
 		this.expenses = expenses;
 		this.userId = userId;
 	}
 
-	public SheetDTOH(String name, long userId) {
+	public SheetDTOH(String name, Long userId) {
 		this.name = name;
 		this.userId = userId;
 		this.expenses = new ArrayList<SheetExpensesDTOH>();
@@ -90,11 +92,11 @@ public class SheetDTOH extends RepresentationModel<SheetDTOH> {
 		this.expenses = expenses;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long user) {
+	public void setUserId(Long user) {
 		this.userId = user;
 	}
 

@@ -103,7 +103,7 @@ public class PaymentOption {
 
 	@Override
 	public String toString() {
-		return "PaymentOption [id=" + id + ", name=" + name + ", creditLimit=" + creditLimit + ", user=" + user + "]";
+		return "PaymentOption [id=" + id + ", name=" + name + ", creditLimit=" + creditLimit + ", userId=" + user.getId() + "]";
 	}
 
 }

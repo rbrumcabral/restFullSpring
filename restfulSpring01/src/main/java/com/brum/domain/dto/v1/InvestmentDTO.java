@@ -12,16 +12,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class InvestmentDTO {
 
 	@JsonProperty("id")
-	private long key;
+	private Long key;
 	private String name;
 	private double value;
 	private String category;
-	private long userId;
+	private Long userId;
 
 	public InvestmentDTO() {
 	}
 
-	public InvestmentDTO(String name, double value, String category, long userId) {
+	public InvestmentDTO(String name, double value, String category, Long userId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
@@ -44,11 +44,11 @@ public class InvestmentDTO {
 		this.userId = investment.getUserId();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -76,11 +76,11 @@ public class InvestmentDTO {
 		this.category = category;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUser(long userId) {
+	public void setUser(Long userId) {
 		this.userId = userId;
 	}
 

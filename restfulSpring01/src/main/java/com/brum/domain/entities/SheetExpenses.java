@@ -63,7 +63,7 @@ public class SheetExpenses extends BaseExpenses {
 
 	@Override
 	public String toString() {
-		return "SheetExpenses [sheet=" + sheet + ", id=" + id + ", name=" + name + ", value=" + value + ", category="
+		return "SheetExpenses [sheetId=" + sheet.getId() + ", id=" + id + ", name=" + name + ", value=" + value + ", category="
 				+ category + ", isStaticValue=" + isStaticValue + "]";
 	}
 

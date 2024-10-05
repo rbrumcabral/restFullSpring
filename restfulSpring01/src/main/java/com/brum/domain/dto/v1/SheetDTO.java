@@ -9,6 +9,7 @@ import com.brum.domain.dto.v2.SheetDTOH;
 import com.brum.domain.entities.Sheet;
 import com.brum.domain.entities.SheetExpenses;
 import com.brum.domain.entities.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
@@ -19,7 +20,9 @@ public class SheetDTO {
 	private Long key;
 	private String name;
 	private List<SheetExpensesDTO> expenses;
-	private long userId;
+	
+	@JsonIgnore
+	private Long userId;
 
 	public SheetDTO() {
 	}

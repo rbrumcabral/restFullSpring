@@ -15,11 +15,11 @@ import jakarta.persistence.Table;
 @Table(name = "investment_t")
 public class Investment {
 
-	private static final long serialVersionUID = 1L;
+	private static final Long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(nullable = false)
 	private String name;
@@ -44,7 +44,7 @@ public class Investment {
 		this.user = user;
 	}
 
-	public Investment(long id, String name, double value, String category, User user) {
+	public Investment(Long id, String name, double value, String category, User user) {
 		this.id = id;
 		this.name = name;
 		this.value = value;
@@ -52,11 +52,11 @@ public class Investment {
 		this.user = user;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -92,7 +92,7 @@ public class Investment {
 		this.user = user;
 	}
 
-	public static long getSerialversionuid() {
+	public static Long getSerialversionuid() {
 		return serialVersionUID;
 	}
 
@@ -117,8 +117,8 @@ public class Investment {
 
 	@Override
 	public String toString() {
-		return "Investment [id=" + id + ", name=" + name + ", value=" + value + ", category=" + category + ", user="
-				+ user + "]";
+		return "Investment [id=" + id + ", name=" + name + ", value=" + value + ", category=" + category + ", userId="
+				+ user.getId() + "]";
 	}
 
 }

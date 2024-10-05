@@ -21,7 +21,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class UserDTOH extends RepresentationModel<UserDTOH> {
 
 	@JsonProperty("id")
-	private long key;
+	private Long key;
 	private String fullName;
 	private String email;
 	private String password;
@@ -131,11 +131,11 @@ public class UserDTOH extends RepresentationModel<UserDTOH> {
 		return user;
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 

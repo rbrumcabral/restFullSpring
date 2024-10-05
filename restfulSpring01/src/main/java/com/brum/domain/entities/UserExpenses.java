@@ -55,7 +55,7 @@ public class UserExpenses extends BaseExpenses {
 
 	@Override
 	public String toString() {
-		return "UserExpenses [user=" + user + ", id=" + id + ", name=" + name + ", value=" + value + ", category="
+		return "UserExpenses [userId=" + user.getId() + ", id=" + id + ", name=" + name + ", value=" + value + ", category="
 				+ category + ", isStaticValue=" + isStaticValue + "]";
 	}
 

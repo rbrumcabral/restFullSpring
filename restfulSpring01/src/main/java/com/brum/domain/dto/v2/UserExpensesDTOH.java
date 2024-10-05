@@ -11,17 +11,17 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "id", "name", "value", "category", "isStaticValue", "user" })
 public class UserExpensesDTOH {
 	@JsonProperty("id")
-	private long key;
+	private Long key;
 	private String name;
 	private double value;
 	private String category;
 	private boolean isStaticValue;
-	private long userId;
+	private Long userId;
 
 	public UserExpensesDTOH() {
 	}
 
-	public UserExpensesDTOH(String name, double value, String category, boolean isStaticValue, long userId) {
+	public UserExpensesDTOH(String name, double value, String category, boolean isStaticValue, Long userId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
@@ -47,11 +47,11 @@ public class UserExpensesDTOH {
 		this.userId = userExpenses.getUserId();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -87,11 +87,11 @@ public class UserExpensesDTOH {
 		this.isStaticValue = isStaticValue;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUser(long userId) {
+	public void setUser(Long userId) {
 		this.userId = userId;
 	}
 

@@ -24,7 +24,7 @@ public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private Long id;
 
 	@Column(name = "full_name", nullable = false)
 	private String fullName;
@@ -51,7 +51,7 @@ public class User {
 	public User() {
 	}
 
-	public User(long id, String fullName, String email, String password, List<PaymentOption> paymentOptions,
+	public User(Long id, String fullName, String email, String password, List<PaymentOption> paymentOptions,
 			List<Sheet> sheets, List<Investment> investments, List<UserExpenses> savedExpenses) {
 		super();
 		this.id = id;
@@ -74,11 +74,11 @@ public class User {
 		this.savedExpenses = new ArrayList<UserExpenses>();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -138,7 +138,7 @@ public class User {
 		this.savedExpenses = savedExpenses;
 	}
 
-	public static long getSerialversionuid() {
+	public static Long getSerialversionuid() {
 		return serialVersionUID;
 	}
 

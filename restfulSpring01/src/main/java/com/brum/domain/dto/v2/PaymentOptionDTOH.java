@@ -11,15 +11,15 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 @JsonPropertyOrder({ "id", "name", "creditLimit", "user" })
 public class PaymentOptionDTOH {
 	@JsonProperty("id")
-	private long key;
+	private Long key;
 	private String name;
 	private double creditLimit;
-	private long userId;
+	private Long userId;
 
 	public PaymentOptionDTOH() {
 	}
 
-	public PaymentOptionDTOH(String name, double creditLimit, long userId) {
+	public PaymentOptionDTOH(String name, double creditLimit, Long userId) {
 		this.name = name;
 		this.creditLimit = creditLimit;
 		this.userId = userId;
@@ -46,11 +46,11 @@ public class PaymentOptionDTOH {
 		this.userId = paymentOption.getUserId();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -70,11 +70,11 @@ public class PaymentOptionDTOH {
 		this.creditLimit = creditLimit;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long user) {
+	public void setUserId(Long user) {
 		this.userId = user;
 	}
 

@@ -11,11 +11,11 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseExpenses {
 
-	private static final long serialVersionUID = 1L;
+	private static final Long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	protected long id;
+	protected Long id;
 
 	@Column(nullable = false)
 	protected String name;
@@ -32,7 +32,7 @@ public abstract class BaseExpenses {
 	public BaseExpenses() {
 	}
 
-	public BaseExpenses(long id, String name, double value, String category, boolean isStaticValue) {
+	public BaseExpenses(Long id, String name, double value, String category, boolean isStaticValue) {
 		this.id = id;
 		this.name = name;
 		this.value = value;
@@ -40,11 +40,11 @@ public abstract class BaseExpenses {
 		this.isStaticValue = isStaticValue;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -80,7 +80,7 @@ public abstract class BaseExpenses {
 		this.category = category;
 	}
 
-	public static long getSerialversionuid() {
+	public static Long getSerialversionuid() {
 		return serialVersionUID;
 	}
 

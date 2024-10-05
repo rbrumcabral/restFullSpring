@@ -12,12 +12,12 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class SheetExpensesDTO {
 
 	@JsonProperty("id")
-	protected long key;
+	protected Long key;
 	protected String name;
 	protected double value;
 	protected String category;
 	protected boolean isStaticValue;
-	private long sheetId;
+	private Long sheetId;
 
 	public SheetExpensesDTO() {
 	}
@@ -49,7 +49,7 @@ public class SheetExpensesDTO {
 		this.sheetId = sheetExpenses.getSheetId();
 	}
 
-	public SheetExpensesDTO(String name, double value, String category, boolean isStaticValue, long sheetId) {
+	public SheetExpensesDTO(String name, double value, String category, boolean isStaticValue, Long sheetId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
@@ -57,11 +57,11 @@ public class SheetExpensesDTO {
 		this.sheetId = sheetId;
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -97,11 +97,11 @@ public class SheetExpensesDTO {
 		this.isStaticValue = isStaticValue;
 	}
 
-	public long getSheetId() {
+	public Long getSheetId() {
 		return sheetId;
 	}
 
-	public void setSheet(long sheetId) {
+	public void setSheet(Long sheetId) {
 		this.sheetId = sheetId;
 	}
 

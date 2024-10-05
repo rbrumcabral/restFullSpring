@@ -111,7 +111,7 @@ public class Sheet {
 
 	@Override
 	public String toString() {
-		return "Sheet [id=" + id + ", name=" + name + ", expenses=" + expenses + ", user=" + user + "]";
+		return "Sheet [id=" + id + ", name=" + name + ", expenses=" + expenses + ", userId=" + user.getId() + "]";
 	}
 
 }

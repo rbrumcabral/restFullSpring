@@ -14,16 +14,16 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 
 	@JsonProperty("id")
-	private long key;
+	private Long key;
 	private String name;
 	private double value;
 	private String category;
-	private long userId;
+	private Long userId;
 
 	public InvestmentDTOH() {
 	}
 
-	public InvestmentDTOH(String name, double value, String category, long userId) {
+	public InvestmentDTOH(String name, double value, String category, Long userId) {
 		this.name = name;
 		this.value = value;
 		this.category = category;
@@ -46,11 +46,11 @@ public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 		this.userId = investment.getUser().getId();
 	}
 
-	public long getKey() {
+	public Long getKey() {
 		return key;
 	}
 
-	public void setKey(long key) {
+	public void setKey(Long key) {
 		this.key = key;
 	}
 
@@ -78,11 +78,11 @@ public class InvestmentDTOH extends RepresentationModel<InvestmentDTOH>{
 		this.category = category;
 	}
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUser(long userId) {
+	public void setUser(Long userId) {
 		this.userId = userId;
 	}
 
