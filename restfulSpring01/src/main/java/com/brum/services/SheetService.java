@@ -21,7 +21,6 @@ import com.brum.domain.entities.Sheet;
 import com.brum.exceptions.entities.NotFoundException;
 import com.brum.exceptions.entities.RequiredObjectIsNull;
 import com.brum.repositories.SheetRepository;
-import com.brum.repositories.UserRepository;
 
 @Service
 public class SheetService {
@@ -33,7 +32,7 @@ public class SheetService {
 	private SheetRepository repository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserService userService;
 
 	Logger logger = LoggerFactory.getLogger(SheetService.class);
 
@@ -77,15 +76,10 @@ public class SheetService {
 			throw new RequiredObjectIsNull(this.messages.getMessage("sheet.service.create.null.persistence"));
 		}
 
-		this.logger.info(sheet.toString());
-
-		var userEntity = this.userRepository.findById(sheet.getUserId()).orElseThrow(() -> {
-			throw new NotFoundException(
-					this.messages.getMessage("sheet.service.create.findById.userId.notFound", sheet.getKey()));
-		});
+		var user = this.userService.findById(sheet.getUserId());
 
 		var entity = sheet.dtoToEntity();
-		entity.setUser(userEntity);
+		entity.setUser(user.dtoToEntity());
 
 		var response = this.repository.save(entity);
 		return new SheetDTO(response);
@@ -118,14 +112,11 @@ public class SheetService {
 			throw new NotFoundException(this.messages.getMessage("sheet.service.findById.notFound", sheet.getKey()));
 		});
 
-		var userEntity = this.userRepository.findById(sheet.getUserId()).orElseThrow(() -> {
-			throw new NotFoundException(
-					this.messages.getMessage("sheet.service.update.findById.userId.notFound", sheet.getKey()));
-		});
+		var user = this.userService.findById(sheet.getUserId());
 
 		entity.setId(sheet.getKey());
 		entity.setName(sheet.getName());
-		entity.setUser(userEntity);
+		entity.setUser(user.dtoToEntity());
 
 		if (sheet.getExpenses() != null) {
 			entity.setExpenses(
