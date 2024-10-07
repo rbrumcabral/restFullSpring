@@ -1,0 +1,28 @@
+spring:
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    open-in-view: true
+server:
+  port: 8888
+  tomcat:
+    uri-encoding: UTF-8
+  servlet:
+    encoding:
+     charset: UTF-8
+     enabled: true
+     force: true
+logging:
+  level:
+    root: INFO
+  file:
+    name: app-api.log
+    path: /home/app/logs/
+springdoc:
+  pathsToMatch: /api/**/**/**
+  swagger-ui:
+    use-root-path: true
