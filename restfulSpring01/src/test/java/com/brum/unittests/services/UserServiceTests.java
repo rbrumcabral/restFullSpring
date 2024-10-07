@@ -1,4 +1,4 @@
-package com.brum.services;
+package com.brum.unittests.services;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -28,6 +28,8 @@ import com.brum.domain.entities.User;
 import com.brum.exceptions.entities.RequiredObjectIsNull;
 import com.brum.mocks.MockUser;
 import com.brum.repositories.UserRepository;
+import com.brum.services.Messages;
+import com.brum.services.UserService;
 
 @TestInstance(Lifecycle.PER_CLASS)
 @ExtendWith(MockitoExtension.class)

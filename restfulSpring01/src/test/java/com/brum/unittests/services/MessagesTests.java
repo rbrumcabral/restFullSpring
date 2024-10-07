@@ -1,4 +1,4 @@
-package com.brum.services;
+package com.brum.unittests.services;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -13,6 +13,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+
+import com.brum.services.Messages;
 
 @ExtendWith(MockitoExtension.class)
 public class MessagesTests {
