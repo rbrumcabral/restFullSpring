@@ -29,7 +29,13 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
-		<springdoc.version> 2.6.0 </springdoc.version>
+		<springdoc.version> 2.6.0</springdoc.version>
+		<sonar.version>3.9.1.2184</sonar.version>
+		<sonar.projectKey>seu-projeto-chave</sonar.projectKey>
+		<sonar.host.url>http://localhost:9000</sonar.host.url>
+		<sonar.login>seu-token-de-autenticação</sonar.login>
+		<testcontainers.version>1.20.2</testcontainers.version>
+		<restassured.version>5.5.0</restassured.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -95,6 +101,16 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>mysql</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.rest-assured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 		<!-- DevTools -->
 		<dependency>
@@ -110,6 +126,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
+				<version>${sonar.version}</version>
 			</plugin>
 		</plugins>
 	</build>
