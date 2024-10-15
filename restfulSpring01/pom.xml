@@ -36,6 +36,7 @@
 		<sonar.login>seu-token-de-autenticação</sonar.login>
 		<testcontainers.version>1.20.2</testcontainers.version>
 		<restassured.version>5.5.0</restassured.version>
+		<java-jwt.version>4.4.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -62,13 +63,21 @@
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version> ${springdoc.version}</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
+		</dependency>
 
 		<!-- Database -->
 		<dependency>
