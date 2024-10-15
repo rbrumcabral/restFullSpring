@@ -1,4 +1,4 @@
-package com.brum.securityJwt;
+package com.brum.security.jwt;
 
 import java.util.Base64;
 import java.util.Date;
