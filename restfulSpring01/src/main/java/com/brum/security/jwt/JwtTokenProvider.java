@@ -42,6 +42,9 @@ public class JwtTokenProvider {
 		secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
 		algorithm = Algorithm.HMAC256(secretKey.getBytes());
 	}
+	
+	private JwtTokenProvider(){
+	}
 
 	public TokenDTO createAccessToken(String username, List<String> roles) {
 		Date now = new Date();

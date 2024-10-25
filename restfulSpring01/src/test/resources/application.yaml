@@ -30,6 +30,8 @@ logging:
     name: app-api.log
     path: /home/app/logs/
 springdoc:
-  pathsToMatch: /api/**/**/**
+  pathsToMatch: 
+    - /api/**/**/**
+    - /auth/**
   swagger-ui:
     use-root-path: true
